@@ -197,6 +197,8 @@ public abstract class AbstractAnalysisTest<P extends AnalysisAction> extends Abs
      */
     @Test @Issue("JENKINS-39947") @WithPlugins({"dashboard-view", "nested-view", "cloudbees-folder", "analysis-core@1.87"})
     public void should_show_warnings_in_folder() {
+        //avoid JENKINS-49026
+        jenkins.restart();
         NestedView nested = jenkins.getViews().create(NestedView.class);
 
         DashboardView dashboard = nested.getViews().create(DashboardView.class);
@@ -230,6 +232,8 @@ public abstract class AbstractAnalysisTest<P extends AnalysisAction> extends Abs
      */
     @Test @WithPlugins("dashboard-view")
     public void should_show_warning_totals_in_dashboard_portlet_with_link_to_results() {
+        //avoid JENKINS-49026
+        jenkins.restart();
         FreeStyleJob job = createFreeStyleJob();
 
         buildJobAndWait(job).shouldSucceed();

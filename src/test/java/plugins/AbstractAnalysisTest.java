@@ -2,6 +2,7 @@ package plugins;
 
 import javax.annotation.CheckForNull;
 import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
@@ -37,6 +38,7 @@ import org.jenkinsci.test.acceptance.plugins.analysis_core.NullConfigurator;
 import org.jenkinsci.test.acceptance.plugins.dashboard_view.AbstractDashboardViewPortlet;
 import org.jenkinsci.test.acceptance.plugins.dashboard_view.DashboardView;
 import org.jenkinsci.test.acceptance.plugins.email_ext.EmailExtPublisher;
+import org.jenkinsci.test.acceptance.plugins.envinject.EnvInjectStep;
 import org.jenkinsci.test.acceptance.plugins.maven.MavenBuildStep;
 import org.jenkinsci.test.acceptance.plugins.maven.MavenInstallation;
 import org.jenkinsci.test.acceptance.plugins.maven.MavenModuleSet;
@@ -148,6 +150,7 @@ public abstract class AbstractAnalysisTest<P extends AnalysisAction> extends Abs
     // TODO: we should have two builds so that the numbers are different
     @Test @Issue("JENKINS-25501") @WithPlugins("email-ext")
     public void should_send_mail_with_expanded_tokens() {
+        jenkins.restart();
         setUpMailer();
 
         FreeStyleJob job = createFreeStyleJob();
@@ -166,6 +169,7 @@ public abstract class AbstractAnalysisTest<P extends AnalysisAction> extends Abs
 
         verifyReceivedMail(String.format("%s: FAILURE", title),
                 String.format("%s: %d-0-%d", title, getNumberOfWarnings(), getNumberOfWarnings()));
+
     }
 
     /**
@@ -197,6 +201,8 @@ public abstract class AbstractAnalysisTest<P extends AnalysisAction> extends Abs
      */
     @Test @Issue("JENKINS-39947") @WithPlugins({"dashboard-view", "nested-view", "cloudbees-folder", "analysis-core@1.87"})
     public void should_show_warnings_in_folder() {
+        //avoid JENKINS-49026
+        jenkins.restart();
         NestedView nested = jenkins.getViews().create(NestedView.class);
 
         DashboardView dashboard = nested.getViews().create(DashboardView.class);
@@ -230,6 +236,8 @@ public abstract class AbstractAnalysisTest<P extends AnalysisAction> extends Abs
      */
     @Test @WithPlugins("dashboard-view")
     public void should_show_warning_totals_in_dashboard_portlet_with_link_to_results() {
+        //avoid JENKINS-49026
+        jenkins.restart();
         FreeStyleJob job = createFreeStyleJob();
 
         buildJobAndWait(job).shouldSucceed();

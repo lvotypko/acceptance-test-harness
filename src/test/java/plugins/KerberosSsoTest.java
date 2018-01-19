@@ -92,7 +92,7 @@ public class KerberosSsoTest extends AbstractJUnitTest {
         setupRealmUser();
         KerberosContainer kdc = startKdc();
         configureSso(kdc, false, false);
-
+        jenkins.login();
         verifyTicketAuth(kdc);
 
         // The global driver is not configured to do so
@@ -106,7 +106,7 @@ public class KerberosSsoTest extends AbstractJUnitTest {
         setupRealmUser();
         KerberosContainer kdc = startKdc();
         configureSso(kdc, false, true);
-
+        jenkins.login();
         verifyTicketAuth(kdc);
     }
 

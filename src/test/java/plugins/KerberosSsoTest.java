@@ -43,11 +43,7 @@ import org.jenkinsci.test.acceptance.junit.DockerTest;
 import org.jenkinsci.test.acceptance.junit.FailureDiagnostics;
 import org.jenkinsci.test.acceptance.junit.WithDocker;
 import org.jenkinsci.test.acceptance.junit.WithPlugins;
-import org.jenkinsci.test.acceptance.po.GlobalPluginConfiguration;
-import org.jenkinsci.test.acceptance.po.GlobalSecurityConfig;
-import org.jenkinsci.test.acceptance.po.JenkinsConfig;
-import org.jenkinsci.test.acceptance.po.JenkinsDatabaseSecurityRealm;
-import org.jenkinsci.test.acceptance.po.User;
+import org.jenkinsci.test.acceptance.po.*;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runners.model.Statement;
@@ -92,7 +88,7 @@ public class KerberosSsoTest extends AbstractJUnitTest {
         setupRealmUser();
         KerberosContainer kdc = startKdc();
         configureSso(kdc, false, false);
-        jenkins.login();
+
         verifyTicketAuth(kdc);
 
         // The global driver is not configured to do so
@@ -106,7 +102,7 @@ public class KerberosSsoTest extends AbstractJUnitTest {
         setupRealmUser();
         KerberosContainer kdc = startKdc();
         configureSso(kdc, false, true);
-        jenkins.login();
+
         verifyTicketAuth(kdc);
     }
 
@@ -116,6 +112,7 @@ public class KerberosSsoTest extends AbstractJUnitTest {
 
         // Correctly negotiate in browser
         FirefoxDriver negotiatingDriver = getNegotiatingFirefox(kdc, tokenCache);
+        negotiatingDriver.get(new Login(jenkins).url.toExternalForm());
         negotiatingDriver.get(jenkins.url("/whoAmI").toExternalForm());
         String out = negotiatingDriver.getPageSource();
         assertThat(out, containsString(AUTHORIZED));

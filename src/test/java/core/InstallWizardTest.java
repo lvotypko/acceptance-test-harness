@@ -64,13 +64,13 @@ public class InstallWizardTest extends AbstractJUnitTest {
         // Create user test
         WizardCreateAdminUser createAdmin = new WizardCreateAdminUser(jenkins);
 
-        createAdmin.createAdminUser("adminUser", "adminPassword", "admin full name", "admin@email.com");
+        createAdmin.createAdminUser("adminuser", "adminPassword", "admin full name", "admin@email.com");
         createAdmin.shouldCreateTheUserSuccessfully();
         createAdmin.wizardShouldFinishSuccessfully();
 
         // Check that the new user is logged in
         Login login = new Login(jenkins);
-        Assert.assertThat(login, loggedInAs("adminUser"));
+        Assert.assertThat(login, loggedInAs("adminuser"));
     }
 
     @Since("2.0")
@@ -96,12 +96,12 @@ public class InstallWizardTest extends AbstractJUnitTest {
         // Create user test
         WizardCreateAdminUser createAdmin = new WizardCreateAdminUser(jenkins);
 
-        createAdmin.createAdminUser("adminUser", "adminPassword", "admin full name", "admin@email.com");
+        createAdmin.createAdminUser("adminuser", "adminPassword", "admin full name", "admin@email.com");
         createAdmin.shouldCreateTheUserSuccessfully();
         createAdmin.wizardShouldFinishSuccessfully();
 
         // Check that the new user is logged in
         Login login = new Login(jenkins);
-        Assert.assertThat(login, loggedInAs("adminUser"));
+        Assert.assertThat(login, loggedInAs("adminuser"));
     }
 }

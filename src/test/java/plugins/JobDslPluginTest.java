@@ -28,6 +28,7 @@ import org.jenkinsci.test.acceptance.po.ListView;
 import org.jenkinsci.test.acceptance.po.PluginManager;
 import org.jenkinsci.test.acceptance.po.View;
 import org.jenkinsci.test.acceptance.update_center.PluginSpec;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
@@ -500,6 +501,7 @@ public class JobDslPluginTest extends AbstractJUnitTest {
      * By default, only a warning is printed to the build log.
      * If the function is used, the build will be marked as unstable.
      */
+    @Ignore
     @Test @WithPlugins("config-file-provider")
     public void should_unstable_on_deprecated_features() {
         FreeStyleJob seedJob = createSeedJob();

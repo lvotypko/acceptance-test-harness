@@ -96,7 +96,7 @@ public class InstallWizardTest extends AbstractJUnitTest {
         // Create user test
         WizardCreateAdminUser createAdmin = new WizardCreateAdminUser(jenkins);
 
-        createAdmin.createAdminUser("adminuser", "adminPassword", "admin full name", "admin@email.com");
+        createAdmin.createAdminUser("adminuIser", "adminPassword", "admin full name", "admin@email.com");
         createAdmin.shouldCreateTheUserSuccessfully();
         createAdmin.wizardShouldFinishSuccessfully();
 

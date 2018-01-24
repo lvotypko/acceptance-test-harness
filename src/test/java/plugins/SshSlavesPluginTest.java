@@ -232,7 +232,7 @@ public class SshSlavesPluginTest extends AbstractJUnitTest {
         
         
         verify();
-        verifyLog("sh -c \"cd \"" + REMOTE_FS + "\" && java  -jar slave.jar\"");
+        verifyLog("sh -c \"cd \"" + REMOTE_FS + "\" && exec java  -jar slave.jar\"");
     }
         
     private void verify() {

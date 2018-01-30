@@ -45,7 +45,10 @@ public class RvmPluginTest extends AbstractJUnitTest {
         job.addBuildWrapper(Rvm.class).implementation.set("2.4.2");
         job.addBuildStep(ShellBuildStep.class).command("ruby --version");
         job.save();
-        Build build = job.startBuild().shouldSucceed();
+        Build build = job.startBuild();
+        Thread.sleep((10000));
+        build.getConsole();
+        build.shouldSucceed();
         assertThat(build.getConsole(), containsString("ruby 2.4.2"));
     }
 

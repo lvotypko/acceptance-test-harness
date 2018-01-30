@@ -1,3 +1,3 @@
-FROM jenkins/java:3fedc9a20524
+FROM jenkins/java:e479392fe61f
 COPY *.pub /tmp
 RUN cat /tmp/*.pub >> /home/test/.ssh/authorized_keys

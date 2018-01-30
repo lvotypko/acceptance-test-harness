@@ -34,6 +34,7 @@ import org.jenkinsci.test.acceptance.docker.DockerContainerHolder;
 import org.jenkinsci.test.acceptance.docker.fixtures.PackageInstallationContainer;
 import org.jenkinsci.test.acceptance.docker.fixtures.SshdContainer;
 import org.jenkinsci.test.acceptance.junit.AbstractJUnitTest;
+import org.jenkinsci.test.acceptance.junit.WithDocker;
 import org.jenkinsci.test.acceptance.junit.WithPlugins;
 import org.jenkinsci.test.acceptance.plugins.rvm.Rvm;
 import org.jenkinsci.test.acceptance.po.Build;
@@ -48,6 +49,7 @@ public class RvmPluginTest extends AbstractJUnitTest {
     private DockerContainerHolder<PackageInstallationContainer> docker;
 
     @Test
+    @WithDocker
     public void smokes() throws Exception {
         FreeStyleJob job = jenkins.jobs.create();
         job.configure();

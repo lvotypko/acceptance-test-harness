@@ -26,6 +26,12 @@ package plugins;
 
 import static org.hamcrest.MatcherAssert.*;
 import static org.hamcrest.Matchers.*;
+
+import com.google.inject.Inject;
+import org.jenkinsci.test.acceptance.docker.Docker;
+import org.jenkinsci.test.acceptance.docker.DockerContainer;
+import org.jenkinsci.test.acceptance.docker.DockerContainerHolder;
+import org.jenkinsci.test.acceptance.docker.fixtures.SshdContainer;
 import org.jenkinsci.test.acceptance.junit.AbstractJUnitTest;
 import org.jenkinsci.test.acceptance.junit.WithPlugins;
 import org.jenkinsci.test.acceptance.plugins.rvm.Rvm;
@@ -36,6 +42,9 @@ import org.junit.Test;
 
 @WithPlugins("rvm")
 public class RvmPluginTest extends AbstractJUnitTest {
+
+    @Inject
+    private DockerContainerHolder<DockerContainer> docker;
 
     @Test
     public void smokes() throws Exception {

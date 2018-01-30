@@ -31,6 +31,7 @@ import com.google.inject.Inject;
 import org.jenkinsci.test.acceptance.docker.Docker;
 import org.jenkinsci.test.acceptance.docker.DockerContainer;
 import org.jenkinsci.test.acceptance.docker.DockerContainerHolder;
+import org.jenkinsci.test.acceptance.docker.fixtures.PackageInstallationContainer;
 import org.jenkinsci.test.acceptance.docker.fixtures.SshdContainer;
 import org.jenkinsci.test.acceptance.junit.AbstractJUnitTest;
 import org.jenkinsci.test.acceptance.junit.WithPlugins;
@@ -44,7 +45,7 @@ import org.junit.Test;
 public class RvmPluginTest extends AbstractJUnitTest {
 
     @Inject
-    private DockerContainerHolder<DockerContainer> docker;
+    private DockerContainerHolder<PackageInstallationContainer> docker;
 
     @Test
     public void smokes() throws Exception {

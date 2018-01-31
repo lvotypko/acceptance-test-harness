@@ -46,7 +46,7 @@ import org.junit.Test;
 public class RvmPluginTest extends AbstractJUnitTest {
 
     @Inject
-    private DockerContainerHolder<PackageInstallationContainer> docker;
+    private DockerContainerHolder<DockerContainer> docker;
 
     @Test
     @WithDocker

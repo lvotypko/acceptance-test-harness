@@ -31,9 +31,12 @@ import com.google.inject.Inject;
 import org.jenkinsci.test.acceptance.docker.Docker;
 import org.jenkinsci.test.acceptance.docker.DockerContainer;
 import org.jenkinsci.test.acceptance.docker.DockerContainerHolder;
+import org.jenkinsci.test.acceptance.docker.fixtures.JavaContainer;
+import org.jenkinsci.test.acceptance.docker.fixtures.JavaGitContainer;
 import org.jenkinsci.test.acceptance.docker.fixtures.PackageInstallationContainer;
 import org.jenkinsci.test.acceptance.docker.fixtures.SshdContainer;
 import org.jenkinsci.test.acceptance.junit.AbstractJUnitTest;
+import org.jenkinsci.test.acceptance.junit.DockerTest;
 import org.jenkinsci.test.acceptance.junit.WithDocker;
 import org.jenkinsci.test.acceptance.junit.WithPlugins;
 import org.jenkinsci.test.acceptance.plugins.rvm.Rvm;
@@ -41,12 +44,16 @@ import org.jenkinsci.test.acceptance.po.Build;
 import org.jenkinsci.test.acceptance.po.FreeStyleJob;
 import org.jenkinsci.test.acceptance.po.ShellBuildStep;
 import org.junit.Test;
+import org.junit.experimental.categories.Category;
 
 @WithPlugins("rvm")
+@Category(DockerTest.class)
+@WithDocker
 public class RvmPluginTest extends AbstractJUnitTest {
 
+
     @Inject
-    private DockerContainerHolder<DockerContainer> docker;
+    private DockerContainerHolder<JavaGitContainer> dockerContainer;
 
     @Test
     @WithDocker

@@ -1,3 +1,3 @@
 FROM mattdm/fedora:f19
 
-usermod -aG sudo ath-user
+RUN echo "usermod -aG sudo ath-user"

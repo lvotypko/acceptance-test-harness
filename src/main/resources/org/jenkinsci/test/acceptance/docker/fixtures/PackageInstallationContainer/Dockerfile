@@ -1,5 +1,3 @@
-#
-# Starts a container with a SAML 2.0 IdP (simpleSaml).
-#
+FROM mattdm/fedora:f19
 
 usermod -aG sudo ath-user

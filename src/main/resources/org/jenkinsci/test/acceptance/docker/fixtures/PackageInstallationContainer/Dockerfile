@@ -1,3 +1,3 @@
-FROM mattdm/fedora:f19
+FROM ubuntu:xenial
 
 RUN usermod -aG sudo ath-user

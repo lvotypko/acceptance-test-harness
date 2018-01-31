@@ -58,6 +58,8 @@ public class RvmPluginTest extends AbstractJUnitTest {
     @Test
     @WithDocker
     public void smokes() throws Exception {
+        dockerContainer.get().assertRunning();
+        dockerContainer.get().getLogfile();
         FreeStyleJob job = jenkins.jobs.create();
         job.configure();
         // Could also use "jruby", though it seems to be more intrusive (tries to install openjdk-jre-headless).

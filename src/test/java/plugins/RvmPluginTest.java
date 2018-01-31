@@ -53,7 +53,7 @@ public class RvmPluginTest extends AbstractJUnitTest {
 
 
     @Inject
-    private DockerContainerHolder<JavaGitContainer> dockerContainer;
+    private DockerContainerHolder<PackageInstallationContainer> dockerContainer;
 
     @Test
     @WithDocker

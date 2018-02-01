@@ -81,6 +81,7 @@ public class RvmPluginTest extends AbstractJUnitTest {
         launcher.host.set(dockerContainer.get().ipBound(22));
         launcher.port(dockerContainer.get().port(22));
         launcher.setSshHostKeyVerificationStrategy(SshSlaveLauncher.NonVerifyingKeyVerificationStrategy.class);
+        return s;
     }
 
 }

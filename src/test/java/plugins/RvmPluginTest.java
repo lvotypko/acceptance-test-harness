@@ -40,9 +40,8 @@ import org.jenkinsci.test.acceptance.junit.DockerTest;
 import org.jenkinsci.test.acceptance.junit.WithDocker;
 import org.jenkinsci.test.acceptance.junit.WithPlugins;
 import org.jenkinsci.test.acceptance.plugins.rvm.Rvm;
-import org.jenkinsci.test.acceptance.po.Build;
-import org.jenkinsci.test.acceptance.po.FreeStyleJob;
-import org.jenkinsci.test.acceptance.po.ShellBuildStep;
+import org.jenkinsci.test.acceptance.plugins.ssh_slaves.SshSlaveLauncher;
+import org.jenkinsci.test.acceptance.po.*;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
@@ -58,15 +57,14 @@ public class RvmPluginTest extends AbstractJUnitTest {
     @Test
     @WithDocker
     public void smokes() throws Exception {
-        dockerContainer.get().assertRunning();
-        dockerContainer.get().getLogfile();
         FreeStyleJob job = jenkins.jobs.create();
-
+        Slave slave = createSlave();
         job.configure();
         // Could also use "jruby", though it seems to be more intrusive (tries to install openjdk-jre-headless).
         job.addShellStep("id");
         job.addBuildWrapper(Rvm.class).implementation.set("2.4.2");
         job.addBuildStep(ShellBuildStep.class).command("ruby --version");
+        job.setLabelExpression(slave.getName());
         job.save();
         Build build = job.startBuild();
         Thread.sleep((10000));
@@ -75,6 +73,14 @@ public class RvmPluginTest extends AbstractJUnitTest {
 
         build.shouldSucceed();
         assertThat(build.getConsole(), containsString("ruby 2.4.2"));
+    }
+
+    private Slave createSlave(){
+        final DumbSlave s = jenkins.slaves.create(DumbSlave.class);
+        SshSlaveLauncher launcher = s.setLauncher(SshSlaveLauncher.class);
+        launcher.host.set(dockerContainer.get().ipBound(22));
+        launcher.port(dockerContainer.get().port(22));
+        launcher.setSshHostKeyVerificationStrategy(SshSlaveLauncher.NonVerifyingKeyVerificationStrategy.class);
     }
 
 }

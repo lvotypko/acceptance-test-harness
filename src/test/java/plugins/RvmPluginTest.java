@@ -45,7 +45,7 @@ import org.jenkinsci.test.acceptance.po.*;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
-@WithPlugins("rvm")
+@WithPlugins({"rvm", "ssh-slaves"})
 @Category(DockerTest.class)
 @WithDocker
 public class RvmPluginTest extends AbstractJUnitTest {

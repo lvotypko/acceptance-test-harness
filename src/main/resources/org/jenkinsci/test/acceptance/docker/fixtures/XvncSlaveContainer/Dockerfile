@@ -1,4 +1,4 @@
-FROM jenkins/java:5c2535ccfddd
+FROM jenkins/java:596a376a5b97
 RUN apt-get update && apt-get install -y vnc4server imagemagick
 
 # So it is owned by root and has the permissions vncserver seems to require:

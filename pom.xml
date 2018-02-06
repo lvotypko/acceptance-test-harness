@@ -403,7 +403,8 @@
     <dependency>
       <groupId>org.jenkins-ci.test</groupId>
       <artifactId>docker-fixtures</artifactId>
-      <version>1.5</version>
+      <version>1.6</version>
+
     </dependency>
     <dependency>
       <groupId>com.github.olivergondza.dumpling</groupId>

@@ -80,8 +80,9 @@ public class RvmPluginTest extends AbstractJUnitTest {
     private Slave createSlave() throws IOException {
         final DumbSlave s = jenkins.slaves.create(DumbSlave.class);
         SshSlaveLauncher launcher = s.setLauncher(SshSlaveLauncher.class);
-        launcher.host.set(dockerContainer.get().getIpAddress());
-        launcher.port(22);
+        PackageInstallationContainer sshd = dockerContainer.get();
+        launcher.host.set(sshd.ipBound(22));
+        launcher.port(sshd.port(22));
         launcher.setSshHostKeyVerificationStrategy(SshSlaveLauncher.NonVerifyingKeyVerificationStrategy.class);
         s.save();
         return s;

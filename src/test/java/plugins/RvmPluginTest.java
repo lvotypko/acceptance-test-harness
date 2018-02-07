@@ -77,7 +77,7 @@ public class RvmPluginTest extends AbstractJUnitTest {
         assertThat(build.getConsole(), containsString("ruby 2.4.2"));
     }
 
-    private Slave createSlave() throws IOException {
+    private Slave createSlave() throws Exception {
         final DumbSlave s = jenkins.slaves.create(DumbSlave.class);
         SshSlaveLauncher launcher = s.setLauncher(SshSlaveLauncher.class);
         PackageInstallationContainer sshd = dockerContainer.get();
@@ -85,6 +85,8 @@ public class RvmPluginTest extends AbstractJUnitTest {
         launcher.port(sshd.port(22));
         launcher.setSshHostKeyVerificationStrategy(SshSlaveLauncher.NonVerifyingKeyVerificationStrategy.class);
         s.save();
+        Thread.sleep(10000);
+        System.err.println(s.getLog());
         return s;
     }
 

@@ -45,6 +45,8 @@ import org.jenkinsci.test.acceptance.po.*;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 
+import java.io.IOException;
+
 @WithPlugins({"rvm", "ssh-slaves"})
 @Category(DockerTest.class)
 @WithDocker
@@ -75,11 +77,11 @@ public class RvmPluginTest extends AbstractJUnitTest {
         assertThat(build.getConsole(), containsString("ruby 2.4.2"));
     }
 
-    private Slave createSlave(){
+    private Slave createSlave() throws IOException {
         final DumbSlave s = jenkins.slaves.create(DumbSlave.class);
         SshSlaveLauncher launcher = s.setLauncher(SshSlaveLauncher.class);
-        launcher.host.set(dockerContainer.get().ipBound(22));
-        launcher.port(dockerContainer.get().port(22));
+        launcher.host.set(dockerContainer.get().getIpAddress());
+        launcher.port(22);
         launcher.setSshHostKeyVerificationStrategy(SshSlaveLauncher.NonVerifyingKeyVerificationStrategy.class);
         return s;
     }

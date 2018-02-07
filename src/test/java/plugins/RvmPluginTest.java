@@ -64,7 +64,7 @@ public class RvmPluginTest extends AbstractJUnitTest {
         job.configure();
         // Could also use "jruby", though it seems to be more intrusive (tries to install openjdk-jre-headless).
         job.addShellStep("id");
-        job.addBuildWrapper(Rvm.class).implementation.set("2.4.2");
+        job.addBuildWrapper(Rvm.class).implementation.set("*");
         job.addBuildStep(ShellBuildStep.class).command("ruby --version");
         job.setLabelExpression(slave.getName());
         job.save();

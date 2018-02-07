@@ -84,7 +84,9 @@ public class RvmPluginTest extends AbstractJUnitTest {
         launcher.host.set(sshd.ipBound(22));
         launcher.port(sshd.port(22));
         launcher.setSshHostKeyVerificationStrategy(SshSlaveLauncher.NonVerifyingKeyVerificationStrategy.class);
+        launcher.pwdCredentials("test","null");
         s.save();
+
         Thread.sleep(10000);
         System.err.println(s.getLog());
         return s;

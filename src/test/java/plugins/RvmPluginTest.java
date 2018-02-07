@@ -72,7 +72,13 @@ public class RvmPluginTest extends AbstractJUnitTest {
         Thread.sleep((10000));
         System.err.println(build.getConsole());
         
-
+        FreeStyleJob j = jenkins.jobs.create();
+        j.configure();
+        j.addShellStep("cat /home/test/.rvm/log/*_ruby-2.4.2/update_system.log");
+        j.save();
+        Build b = j.startBuild();
+        Thread.sleep(10000);
+        System.err.println(b.getConsole());
         build.shouldSucceed();
         assertThat(build.getConsole(), containsString("ruby 2.4.2"));
     }

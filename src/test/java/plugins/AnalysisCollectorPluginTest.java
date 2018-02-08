@@ -98,6 +98,7 @@ public class AnalysisCollectorPluginTest extends AbstractAnalysisTest<AnalysisCo
     @Test @WithPlugins({"git", "workflow-job"}) @WithDocker
     @WithCredentials(credentialType = WithCredentials.SSH_USERNAME_PRIVATE_KEY, values = {CREDENTIALS_ID, KEY_FILENAME})
     public void should_checkout_pipeline_from_git() {
+        jenkins.restart();
         String gitRepositoryUrl = createGitRepositoryInDockerContainer();
 
         WorkflowJob job = jenkins.getJobs().create(WorkflowJob.class);

@@ -1,4 +1,4 @@
-node() {
+node {
     checkout scm
 
     step([$class: 'FindBugsPublisher', pattern: '**/findbugs.xml'])

@@ -95,7 +95,7 @@ public class AnalysisCollectorPluginTest extends AbstractAnalysisTest<AnalysisCo
      * {@link AbstractAnalysisTest#should_navigate_to_result_action_from_pipeline()}. Rather than using the script
      * text box a Git repository is connected.
      */
-    @Test @WithPlugins({"git",  "workflow-basic-steps","workflow-support", "workflow-job", "pipeline-stage-step", "workflow-cps", "workflow-durable-task-step", "workflow-scm-step", "workflow-cps-global-lib", "workflow-api", "scm-api"}) @WithDocker
+    @Test @WithPlugins({"git",  "workflow-basic-steps", "workflow-multibranch", "workflow-job", "pipeline-stage-step", "workflow-cps", "workflow-durable-task-step", "workflow-scm-step", "workflow-cps-global-lib", "workflow-api", "scm-api"}) @WithDocker
     @WithCredentials(credentialType = WithCredentials.SSH_USERNAME_PRIVATE_KEY, values = {CREDENTIALS_ID, KEY_FILENAME})
     public void should_checkout_pipeline_from_git() {
         //jenkins.restart();

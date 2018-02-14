@@ -17,6 +17,7 @@ import org.junit.Test;
 
 import javax.inject.Inject;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLConnection;
@@ -90,14 +91,25 @@ public class SAMLPluginTest extends AbstractJUnitTest {
         jenkins.open(); // navigate to root
         String rootUrl = jenkins.getCurrentUrl();
         SAMLContainer samlServer = startSimpleSAML(rootUrl);
+        File f = samlServer.getLogfile();
+        System.err.println(samlServer.getLogfile());
 
         GlobalSecurityConfig sc = new GlobalSecurityConfig(jenkins);
         sc.open();
 
         // Authentication
         SamlSecurityRealm realm = configureBasicSettings(sc);
-        String idpMetadata = readIdPMetadataFromURL(samlServer);
-        realm.setXml(idpMetadata);
+        try {
+            String idpMetadata = readIdPMetadataFromURL(samlServer);
+            realm.setXml(idpMetadata);
+        }
+        catch(Exception e){
+            e.printStackTrace(System.err);
+            FileInputStream st = new FileInputStream(f);
+            System.err.println(IOUtils.toString(st));
+        }
+        FileInputStream st = new FileInputStream(f);
+        System.err.println(IOUtils.toString(st));
         realm.setBinding(SAML2_POST_BINDING_URI);
         configureEncrytion(realm);
         configureAuthorization(sc);

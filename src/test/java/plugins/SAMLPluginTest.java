@@ -68,14 +68,23 @@ public class SAMLPluginTest extends AbstractJUnitTest {
         jenkins.open(); // navigate to root
         String rootUrl = jenkins.getCurrentUrl();
         SAMLContainer samlServer = startSimpleSAML(rootUrl);
-
+        File f = samlServer.getLogfile();
+        System.err.println("log file " + samlServer.getLogfile());
         GlobalSecurityConfig sc = new GlobalSecurityConfig(jenkins);
         sc.open();
 
         // Authentication
         SamlSecurityRealm realm = configureBasicSettings(sc);
-        realm.setUrl(createIdPMetadataURL(samlServer));
-
+        try {
+            realm.setUrl(createIdPMetadataURL(samlServer));
+        }
+        catch(Exception e){
+            e.printStackTrace(System.err);
+            FileInputStream st = new FileInputStream(f);
+            System.err.println(IOUtils.toString(st));
+        }
+        FileInputStream st = new FileInputStream(f);
+        System.err.println(IOUtils.toString(st));
         configureEncrytion(realm);
         configureAuthorization(sc);
 
@@ -92,7 +101,7 @@ public class SAMLPluginTest extends AbstractJUnitTest {
         String rootUrl = jenkins.getCurrentUrl();
         SAMLContainer samlServer = startSimpleSAML(rootUrl);
         File f = samlServer.getLogfile();
-        System.err.println(samlServer.getLogfile());
+        System.err.println("log file " + samlServer.getLogfile());
 
         GlobalSecurityConfig sc = new GlobalSecurityConfig(jenkins);
         sc.open();

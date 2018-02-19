@@ -24,9 +24,9 @@ RUN curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-17.04.0-ce.tgz
     tar --strip-components=1 -xvzf docker-17.04.0-ce.tgz -C /usr/local/bin
 
 # Allow injecting uid and git to match directory ownership
-ARG uid=1000
+ARG uid=600
 ENV uid $uid
-ARG gid=1000
+ARG gid=600
 ENV gid $gid
 
 EXPOSE 5942
@@ -37,11 +37,20 @@ RUN mkdir /tmp/.X11-unix && chmod 1777 /tmp/.X11-unix/
 RUN groupadd ath-user -g $gid && \
     useradd ath-user -u $uid -g $gid -m -d /home/ath-user
 
+RUN id ath-user
+
+RUN id $uid
+
+RUN id
+
 # TODO seems this can be picked up from the host, which is unwanted:
 ENV XAUTHORITY /home/ath-user/.Xauthority
 
 USER ath-user
 # 'n' for "Would you like to enter a view-only password (y/n)?"
+
+RUN id
+
 RUN mkdir /home/ath-user/.vnc && (echo ath-user; echo ath-user; echo "n") | vncpasswd /home/ath-user/.vnc/passwd
 # Default content includes x-window-manager, which is not installed, plus other stuff we do not need (vncconfig, x-terminal-emulator, etc.):
 RUN touch /home/ath-user/.vnc/xstartup && chmod a+x /home/ath-user/.vnc/xstartup

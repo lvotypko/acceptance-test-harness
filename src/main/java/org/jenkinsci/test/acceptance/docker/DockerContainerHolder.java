@@ -67,8 +67,10 @@ public class DockerContainerHolder<T extends DockerContainer> implements Provide
         File buildlog = diag.touch("docker-" + fixture.getSimpleName() + ".build.log");
         File runlog = diag.touch("docker-" + fixture.getSimpleName() + ".run.log");
         Starter<T> containerStarter = docker.build(fixture, buildlog).start(fixture).withLog(runlog);
-
-        containerStarter.withOptions(new CommandBuilder("--net " + InetAddress.getLocalHost().getHostAddress()));
+        String address = InetAddress.getLocalHost().getHostAddress();
+        System.err.println("address_________   " + address);
+        System.err.println(InetAddress.getLocalHost().getHostName());
+        containerStarter.withOptions(new CommandBuilder("--net " + address));
         if (portOffset != null) {
             containerStarter.withPortOffset(portOffset);
         }

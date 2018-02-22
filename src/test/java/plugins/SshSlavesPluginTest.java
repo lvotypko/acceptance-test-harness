@@ -42,13 +42,16 @@ import org.jenkinsci.test.acceptance.po.FreeStyleJob;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.jvnet.hudson.test.Issue;
+import org.mockito.internal.util.io.IOUtil;
 import org.openqa.selenium.NoSuchElementException;
+import sun.misc.IOUtils;
 
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.fail;
 
+import java.net.InetAddress;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 
@@ -220,6 +223,16 @@ public class SshSlavesPluginTest extends AbstractJUnitTest {
     
     @Test public void customStartup() {
         setUp();
+        try {
+            String address = InetAddress.getLocalHost().getHostAddress();
+            System.err.println("address_________   " + address + "docker should " + docker.get().getIpAddress());
+            Process p = Runtime.getRuntime().exec("ping " + docker.get().getIpAddress());
+            p.waitFor(1, TimeUnit.MINUTES);
+            System.err.println(IOUtil.readLines(p.getInputStream()));
+        }
+        catch(Exception e){
+
+        }
         SshSlaveLauncher launcher = configureDefaultSSHSlaveLauncher().pwdCredentials("test", "test");
         
         launcher.prefixCmd.set("sh -c \"");

@@ -11,7 +11,11 @@ import javax.inject.Named;
 import javax.inject.Provider;
 import java.io.File;
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+
 import org.jenkinsci.test.acceptance.docker.DockerImage.Starter;
+import org.jenkinsci.utils.process.CommandBuilder;
 
 /**
  * Inject this object to automate the cleanup of a running container at the end of the test case.
@@ -63,6 +67,8 @@ public class DockerContainerHolder<T extends DockerContainer> implements Provide
         File buildlog = diag.touch("docker-" + fixture.getSimpleName() + ".build.log");
         File runlog = diag.touch("docker-" + fixture.getSimpleName() + ".run.log");
         Starter<T> containerStarter = docker.build(fixture, buildlog).start(fixture).withLog(runlog);
+
+        containerStarter.withOptions(new CommandBuilder("--net " + InetAddress.getLocalHost().getHostAddress()));
         if (portOffset != null) {
             containerStarter.withPortOffset(portOffset);
         }

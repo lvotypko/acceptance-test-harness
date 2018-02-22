@@ -71,7 +71,6 @@ public class DockerContainerHolder<T extends DockerContainer> implements Provide
         System.err.println("address_________   " + address);
         System.err.println(InetAddress.getLocalHost().getHostName());
         containerStarter.withOptions(new CommandBuilder().add("--net", "bridge"));
-        containerStarter.withArgs(new CommandBuilder("-net ", "bridge"));
         //containerStarter.withArgs(new CommandBuilder("--net " + address));
         if (portOffset != null) {
             containerStarter.withPortOffset(portOffset);

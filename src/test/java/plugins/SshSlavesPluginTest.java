@@ -232,6 +232,7 @@ public class SshSlavesPluginTest extends AbstractJUnitTest {
             p.destroyForcibly();
             System.err.println("read output");
             System.err.println(IOUtil.readLines(p.getInputStream()));
+            System.err.println(IOUtil.readLines(p.getErrorStream()));
         }
         catch(Exception e){
 

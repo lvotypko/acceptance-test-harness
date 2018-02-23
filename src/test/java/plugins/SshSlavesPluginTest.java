@@ -226,10 +226,10 @@ public class SshSlavesPluginTest extends AbstractJUnitTest {
         try {
             String address = InetAddress.getLocalHost().getHostAddress();
             System.err.println("address_________   " + address + "docker should " + docker.get().getIpAddress() + " sharing " + docker.get().sharingHostDockerService());
-            Process p = Runtime.getRuntime().exec("ping " + docker.get().getIpAddress());
+            Process p = Runtime.getRuntime().exec("ping -c 5" + docker.get().getIpAddress());
             System.err.println("wait for process");
-            p.waitFor(1, TimeUnit.MINUTES);
-            p.destroyForcibly();
+            p.waitFor();
+            
             System.err.println("read output ");
             System.err.println(IOUtil.readLines(p.getInputStream()));
             System.err.println(IOUtil.readLines(p.getErrorStream()));

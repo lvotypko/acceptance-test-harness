@@ -17,7 +17,8 @@ RUN apt-get clean && \
         maven \
         openjdk-8-jdk \
         unzip \
-        vnc4server
+        vnc4server \
+        sudo
 
 # All we need is a statically linked client library - no need to install daemon deps: https://get.docker.com/builds/
 RUN curl -fsSLO https://get.docker.com/builds/Linux/x86_64/docker-17.04.0-ce.tgz && \
@@ -52,4 +53,5 @@ RUN touch /home/ath-user/.Xauthority
 # approach used for this is adding ath-user to the group of /var/run/docker.sock but that require root permission we do not
 # have in ENTRYPOINT as the container is started as ath-user.
 USER root
+RUN echo 'ath-user ALL= NOPASSWD: /bin/chown' >> /etc/sudoers
 RUN chmod ug+s "$(which docker)"

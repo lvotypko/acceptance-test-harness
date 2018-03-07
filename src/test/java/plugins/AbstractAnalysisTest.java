@@ -179,6 +179,7 @@ public abstract class AbstractAnalysisTest<P extends AnalysisAction> extends Abs
                 contains = false;
                 break;
             }
+            contains = true;
         }
         if(result.contains("[]") || (!extensionNames.isEmpty() && !contains)){
             jenkins.restart();

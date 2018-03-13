@@ -109,6 +109,10 @@ public abstract class View extends ContainerPageObject {
         return "viewConfig";
     }
 
+    public String getSubmitButtonText(){
+        return "OK";
+    }
+
     public static Matcher<View> containsColumnHeaderTooltip(String tooltip) {
         return new Matcher<View>("Contains ToolTip " + tooltip) {
             @Override

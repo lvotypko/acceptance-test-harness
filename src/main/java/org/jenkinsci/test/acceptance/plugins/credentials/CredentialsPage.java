@@ -17,6 +17,7 @@ public class CredentialsPage extends ConfigurablePageObject {
 
     /**
      * Create a new Credential
+     *
      * @param j
      * @param domainName
      */
@@ -26,6 +27,7 @@ public class CredentialsPage extends ConfigurablePageObject {
 
     /**
      * Create a new Credential scoped to a Folder
+     *
      * @param f
      * @param domainName
      */
@@ -35,6 +37,7 @@ public class CredentialsPage extends ConfigurablePageObject {
 
     /**
      * Create a new personal Credential
+     *
      * @param j
      * @param domainName
      * @param userName
@@ -56,11 +59,11 @@ public class CredentialsPage extends ConfigurablePageObject {
 
 
     public void setConfigUrl(String url) throws MalformedURLException {
-        configUrl = new URL(url+"/update");
-        deleteUrl = new URL(url+"/delete");
+        configUrl = new URL(url + "/update");
+        deleteUrl = new URL(url + "/delete");
     }
 
-    public void create(){
+    public void create() {
         clickButton("OK");
         assertThat(driver, not(hasContent("This page expects a form submission")));
     }
@@ -81,5 +84,9 @@ public class CredentialsPage extends ConfigurablePageObject {
         // condition when changing credentials type too fast (happens rarely)
         waitFor(by.name("_.id"));
         return wd;
+    }
+
+    public String getFormName() {
+        return "update";
     }
 }

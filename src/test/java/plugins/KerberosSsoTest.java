@@ -227,6 +227,8 @@ public class KerberosSsoTest extends AbstractJUnitTest {
                 throw new Error(e);
             }
         }
+        profile.setPreference("network.negotiate-auth.trusted-uris", trustedUris);
+        profile.setPreference("network.negotiate-auth.delegation-uris", trustedUris);
         // Load extensions
         File harExport = new File("/tmp/harexporttrigger-0.5.0-beta.7.xpi"); //adjust path as needed
         try {

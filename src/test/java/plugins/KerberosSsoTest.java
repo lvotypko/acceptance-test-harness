@@ -68,6 +68,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.containsString;
 import static org.hamcrest.Matchers.not;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 /**
  * Run Kerberos SSO tests against the containerized KDC.
@@ -128,6 +129,7 @@ public class KerberosSsoTest extends AbstractJUnitTest {
 
         // Non-negotiating request should fail
         assertUnauthenticatedRequestIsRejected(getBadassHttpClient());
+        fail("test fail");
     }
 
     @Test

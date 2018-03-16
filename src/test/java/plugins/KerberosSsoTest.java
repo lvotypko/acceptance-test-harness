@@ -120,7 +120,8 @@ public class KerberosSsoTest extends AbstractJUnitTest {
         FirefoxDriver negotiatingDriver = getNegotiatingFirefox(kdc, tokenCache);
         negotiatingDriver.get("https://google.com");
         Thread.sleep(5000);
-        //negotiatingDriver.get(jenkins.url("/whoAmI").toExternalForm());
+        negotiatingDriver.get(jenkins.url("/whoAmI").toExternalForm());
+        Thread.sleep(5000);
         //negotiatingDriver.get(jenkins.url("/whoAmI").toExternalForm());
         String out = negotiatingDriver.getPageSource();
         assertThat(out, containsString(AUTHORIZED));
@@ -228,6 +229,29 @@ public class KerberosSsoTest extends AbstractJUnitTest {
         }
         profile.setPreference("network.negotiate-auth.trusted-uris", trustedUris);
         profile.setPreference("network.negotiate-auth.delegation-uris", trustedUris);
+        profile.setPreference("extensions.netmonitor.har.enableAutomation", true);
+        // Set to a token that is consequently passed into all HAR API calls to verify the user.
+        profile.setPreference("extensions.netmonitor.har.contentAPIToken", "test");
+        // Set if you want to have the HAR object available without the developer toolbox being open.
+        profile.setPreference("extensions.netmonitor.har.autoConnect", true);
+
+        // Enable netmonitor
+        profile.setPreference("devtools.netmonitor.enabled", true);
+        // If set to true the final HAR file is zipped. This might represents great disk-space optimization especially if HTTP response bodies are included.
+        profile.setPreference("devtools.netmonitor.har.compress", false);
+        // Default name of the target HAR file. The default file name supports formatters
+        profile.setPreference("devtools.netmonitor.har.defaultFileName", "Autoexport_%y%m%d_%H%M%S");
+        // If true, a new HAR file is created for every loaded page automatically.
+        profile.setPreference("devtools.netmonitor.har.enableAutoExportToFile", true);
+        // The result HAR file is created even if there are no HTTP requests.
+        profile.setPreference("devtools.netmonitor.har.forceExport", true);
+        // If set to true, HTTP response bodies are also included in the HAR file (can produce significantly bigger amount of data).
+        profile.setPreference("devtools.netmonitor.har.includeResponseBodies", false);
+        // If set to true the export format is HARP (support for JSONP syntax that is easily transferable cross domains)
+        profile.setPreference("devtools.netmonitor.har.jsonp", false);
+        // Default name of JSONP callback (used for HARP format)
+        profile.setPreference("devtools.netmonitor.har.jsonpCallback", false);
+
 
         FirefoxBinary binary = new FirefoxBinary();
         // Inject config and TGT
@@ -243,6 +267,7 @@ public class KerberosSsoTest extends AbstractJUnitTest {
             binary.setEnvironmentProperty("DISPLAY", display);
         }
         final FirefoxDriver driver = new FirefoxDriver(binary, profile);
+
         cleaner.addTask(new Statement() {
             @Override
             public void evaluate() throws Throwable {

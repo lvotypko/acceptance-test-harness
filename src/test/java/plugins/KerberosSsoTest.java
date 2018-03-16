@@ -119,6 +119,7 @@ public class KerberosSsoTest extends AbstractJUnitTest {
         // Correctly negotiate in browser
         FirefoxDriver negotiatingDriver = getNegotiatingFirefox(kdc, tokenCache);
         negotiatingDriver.get("https://google.com");
+        Thread.sleep(5000);
         negotiatingDriver.get(jenkins.url("/whoAmI").toExternalForm());
         String out = negotiatingDriver.getPageSource();
         assertThat(out, containsString(AUTHORIZED));

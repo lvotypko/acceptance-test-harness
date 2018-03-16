@@ -227,6 +227,7 @@ public class KerberosSsoTest extends AbstractJUnitTest {
                 throw new Error(e);
             }
         }
+
         profile.setPreference("network.negotiate-auth.trusted-uris", trustedUris);
         profile.setPreference("network.negotiate-auth.delegation-uris", trustedUris);
         // Load extensions
@@ -268,6 +269,7 @@ public class KerberosSsoTest extends AbstractJUnitTest {
 
 
         FirefoxBinary binary = new FirefoxBinary();
+        binary.addCommandLineOptions("devtools");
         // Inject config and TGT
         binary.setEnvironmentProperty("KRB5CCNAME", tokenCache);
         binary.setEnvironmentProperty("KRB5_CONFIG", kdc.getKrb5ConfPath());

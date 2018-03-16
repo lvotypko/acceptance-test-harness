@@ -98,7 +98,7 @@ public class KerberosSsoTest extends AbstractJUnitTest {
 
         // The global driver is not configured to do so
         driver.manage().deleteAllCookies(); // Logout
-        jenkins.visit("/whoAmI"); // 401 Unauthorized
+        jenkins.visit("/whoAmI/"); // 401 Unauthorized
         assertThat(driver.getPageSource(), not(containsString(AUTHORIZED)));
     }
 
@@ -120,7 +120,7 @@ public class KerberosSsoTest extends AbstractJUnitTest {
         FirefoxDriver negotiatingDriver = getNegotiatingFirefox(kdc, tokenCache);
         negotiatingDriver.get("https://google.com");
         Thread.sleep(5000);
-        negotiatingDriver.get(jenkins.url("/whoAmI").toExternalForm());
+        negotiatingDriver.get(jenkins.url("/whoAmI/").toExternalForm());
         Thread.sleep(5000);
         //negotiatingDriver.get(jenkins.url("/whoAmI").toExternalForm());
         String out = negotiatingDriver.getPageSource();

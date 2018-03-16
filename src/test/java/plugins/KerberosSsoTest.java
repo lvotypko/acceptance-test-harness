@@ -35,6 +35,7 @@ import org.apache.http.impl.auth.BasicSchemeFactory;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.jenkinsci.test.acceptance.FallbackConfig;
+import org.jenkinsci.test.acceptance.Matchers;
 import org.jenkinsci.test.acceptance.docker.DockerContainerHolder;
 import org.jenkinsci.test.acceptance.docker.fixtures.KerberosContainer;
 import org.jenkinsci.test.acceptance.guice.TestCleaner;
@@ -47,7 +48,9 @@ import org.jenkinsci.test.acceptance.po.GlobalPluginConfiguration;
 import org.jenkinsci.test.acceptance.po.GlobalSecurityConfig;
 import org.jenkinsci.test.acceptance.po.JenkinsConfig;
 import org.jenkinsci.test.acceptance.po.JenkinsDatabaseSecurityRealm;
+import org.jenkinsci.test.acceptance.po.Login;
 import org.jenkinsci.test.acceptance.po.User;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runners.model.Statement;
@@ -120,10 +123,12 @@ public class KerberosSsoTest extends AbstractJUnitTest {
         FirefoxDriver negotiatingDriver = getNegotiatingFirefox(kdc, tokenCache);
         negotiatingDriver.get("https://google.com");
         Thread.sleep(5000);
-        negotiatingDriver.get(jenkins.url.toExternalForm());
+        //negotiatingDriver.get(jenkins.url.toExternalForm());
+        Login login = new Login(jenkins);
+        Assert.assertThat(login, Matchers.loggedInAs("user"));
         Thread.sleep(5000);
-        //negotiatingDriver.get(jenkins.url("/whoAmI").toExternalForm());
-        
+        negotiatingDriver.get(jenkins.url("/whoAmI").toExternalForm());
+
         String out = negotiatingDriver.getPageSource();
         assertThat(out, containsString(AUTHORIZED));
 

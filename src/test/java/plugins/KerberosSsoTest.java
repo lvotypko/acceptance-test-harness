@@ -269,7 +269,8 @@ public class KerberosSsoTest extends AbstractJUnitTest {
 
 
         FirefoxBinary binary = new FirefoxBinary();
-        binary.addCommandLineOptions("devtools");
+        binary.addCommandLineOptions("--devtools");
+
         // Inject config and TGT
         binary.setEnvironmentProperty("KRB5CCNAME", tokenCache);
         binary.setEnvironmentProperty("KRB5_CONFIG", kdc.getKrb5ConfPath());

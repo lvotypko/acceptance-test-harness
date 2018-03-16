@@ -113,9 +113,15 @@ public class KerberosSsoTest extends AbstractJUnitTest {
     private void verifyTicketAuth(KerberosContainer kdc) throws IOException, InterruptedException {
         // Get TGT
         String tokenCache = kdc.getClientTokenCache();
-
+        System.err.println("wait a few after ticket is created.");
+        Thread.sleep(10000);
         // Correctly negotiate in browser
         FirefoxDriver negotiatingDriver = getNegotiatingFirefox(kdc, tokenCache);
+        negotiatingDriver.get(jenkins.url("/whoAmI").toExternalForm());
+        System.err.println("try again");
+        negotiatingDriver.get(jenkins.url("/whoAmI").toExternalForm());
+        System.err.println("try sleep ");
+        System.err.println(10000);
         negotiatingDriver.get(jenkins.url("/whoAmI").toExternalForm());
         String out = negotiatingDriver.getPageSource();
         assertThat(out, containsString(AUTHORIZED));

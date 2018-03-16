@@ -227,8 +227,15 @@ public class KerberosSsoTest extends AbstractJUnitTest {
                 throw new Error(e);
             }
         }
-        profile.setPreference("network.negotiate-auth.trusted-uris", trustedUris);
-        profile.setPreference("network.negotiate-auth.delegation-uris", trustedUris);
+        // Load extensions
+        File harExport = new File("/tmp/harexporttrigger-0.5.0-beta.7.xpi"); //adjust path as needed
+        try {
+            profile.addExtension(harExport);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        // Enable the automation without having a new HAR file created for every loaded page.
         profile.setPreference("extensions.netmonitor.har.enableAutomation", true);
         // Set to a token that is consequently passed into all HAR API calls to verify the user.
         profile.setPreference("extensions.netmonitor.har.contentAPIToken", "test");
@@ -241,6 +248,8 @@ public class KerberosSsoTest extends AbstractJUnitTest {
         profile.setPreference("devtools.netmonitor.har.compress", false);
         // Default name of the target HAR file. The default file name supports formatters
         profile.setPreference("devtools.netmonitor.har.defaultFileName", "Autoexport_%y%m%d_%H%M%S");
+        // Default log directory for generate HAR files. If empty all automatically generated HAR files are stored in <FF-profile>/har/logs
+        profile.setPreference("devtools.netmonitor.har.defaultLogDir", "/mnt/hudson_workspace/workspace");
         // If true, a new HAR file is created for every loaded page automatically.
         profile.setPreference("devtools.netmonitor.har.enableAutoExportToFile", true);
         // The result HAR file is created even if there are no HTTP requests.
@@ -251,6 +260,9 @@ public class KerberosSsoTest extends AbstractJUnitTest {
         profile.setPreference("devtools.netmonitor.har.jsonp", false);
         // Default name of JSONP callback (used for HARP format)
         profile.setPreference("devtools.netmonitor.har.jsonpCallback", false);
+        // Amount of time [ms] the auto-exporter should wait after the last finished request before exporting the HAR file.
+        profile.setPreference("devtools.netmonitor.har.pageLoadedTimeout", "2500");
+
 
 
         FirefoxBinary binary = new FirefoxBinary();

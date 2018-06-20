@@ -126,7 +126,7 @@ public class KerberosSsoTest extends AbstractJUnitTest {
         FailureDiagnostics d = new FailureDiagnostics(new TestName("dashboard-page"));
         d.write("dasboard ", negotiatingDriver.getPageSource());
         System.out.println("taken picture!");
-        System.err.println(negotiatingDriver.getPageSource());
+        System.err.println( " page sources:::" + negotiatingDriver.getPageSource());
         System.out.println(negotiatingDriver.getPageSource());
         negotiatingDriver.get(jenkins.url("/whoAmI").toExternalForm());
         String out = negotiatingDriver.getPageSource();

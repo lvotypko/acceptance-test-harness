@@ -125,7 +125,9 @@ public class KerberosSsoTest extends AbstractJUnitTest {
         negotiatingDriver.get(jenkins.url.toExternalForm());
         FailureDiagnostics d = new FailureDiagnostics(new TestName("dashboard-page"));
         d.write("dasboard ", getPageSource());
+        System.out.println("taken picture!");
         System.err.println(getPageSource());
+        System.out.println(getPageSource());
         negotiatingDriver.get(jenkins.url("/whoAmI").toExternalForm());
         String out = negotiatingDriver.getPageSource();
         assertThat(out, containsString(AUTHORIZED));

@@ -38,6 +38,7 @@ import org.jenkinsci.test.acceptance.FallbackConfig;
 import org.jenkinsci.test.acceptance.docker.DockerContainerHolder;
 import org.jenkinsci.test.acceptance.docker.fixtures.KerberosContainer;
 import org.jenkinsci.test.acceptance.guice.TestCleaner;
+import org.jenkinsci.test.acceptance.guice.TestName;
 import org.jenkinsci.test.acceptance.junit.AbstractJUnitTest;
 import org.jenkinsci.test.acceptance.junit.DockerTest;
 import org.jenkinsci.test.acceptance.junit.FailureDiagnostics;
@@ -122,7 +123,9 @@ public class KerberosSsoTest extends AbstractJUnitTest {
 
         //visit the page who requires authorization and asks for credentials before visiting unprotected root action "/whoAmI"
         negotiatingDriver.get(jenkins.url.toExternalForm());
-
+        FailureDiagnostics d = new FailureDiagnostics(new TestName("dashboard-page"));
+        d.write("dasboard ", getPageSource());
+        System.err.println(getPageSource());
         negotiatingDriver.get(jenkins.url("/whoAmI").toExternalForm());
         String out = negotiatingDriver.getPageSource();
         assertThat(out, containsString(AUTHORIZED));

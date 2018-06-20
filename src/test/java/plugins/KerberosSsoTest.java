@@ -124,10 +124,10 @@ public class KerberosSsoTest extends AbstractJUnitTest {
         //visit the page who requires authorization and asks for credentials before visiting unprotected root action "/whoAmI"
         negotiatingDriver.get(jenkins.url.toExternalForm());
         FailureDiagnostics d = new FailureDiagnostics(new TestName("dashboard-page"));
-        d.write("dasboard ", getPageSource());
+        d.write("dasboard ", negotiatingDriver.getPageSource());
         System.out.println("taken picture!");
-        System.err.println(getPageSource());
-        System.out.println(getPageSource());
+        System.err.println(negotiatingDriver.getPageSource());
+        System.out.println(negotiatingDriver.getPageSource());
         negotiatingDriver.get(jenkins.url("/whoAmI").toExternalForm());
         String out = negotiatingDriver.getPageSource();
         assertThat(out, containsString(AUTHORIZED));

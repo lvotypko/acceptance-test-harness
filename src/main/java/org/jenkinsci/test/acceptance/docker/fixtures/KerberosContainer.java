@@ -66,6 +66,10 @@ public class KerberosContainer extends DynamicDockerContainer {
         }
     }
 
+    public static String getHost(){
+        return HOST_FQDN;
+    }
+
     private File targetDir = null;
     private File loginConf = null;
     private File krb5Conf = null;

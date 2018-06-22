@@ -122,6 +122,7 @@ public class KerberosSsoTest extends AbstractJUnitTest {
         FirefoxDriver negotiatingDriver = getNegotiatingFirefox(kdc, tokenCache);
 
         //visit the page who requires authorization and asks for credentials before visiting unprotected root action "/whoAmI"
+        negotiatingDriver.get("https://google.com");
         negotiatingDriver.get(jenkins.url.toExternalForm());
         negotiatingDriver.get(jenkins.url.toExternalForm());
         negotiatingDriver.get(jenkins.url.toExternalForm());

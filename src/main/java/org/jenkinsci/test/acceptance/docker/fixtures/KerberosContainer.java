@@ -119,7 +119,7 @@ public class KerberosContainer extends DynamicDockerContainer {
         try{
             File file = new File(to);
             file.createNewFile();
-            String output = Docker.cmd("exec " ).add(getCid()).add ("cat " + from).add("> " + to).popen().asText();
+            String output = Docker.cmd("exec" ).add(getCid()).add ("cat " + from).add("> " + to).popen().asText();
             FileUtils.write(file, output);
             System.err.println("file exit??? " + file.exists());
             System.err.println("output " + output);

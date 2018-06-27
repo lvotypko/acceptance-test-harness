@@ -114,10 +114,11 @@ public class KerberosContainer extends DynamicDockerContainer {
 
     public boolean copyFile(String from, String to){
         try{
-            String output = Docker.cmd("exec " ).add(getCid()).add ("cat").add(from).add(">").add(to).popen().verifyOrDieWith("Could not write the file " + from  + " to a file " + to);
+            Docker.cmd("exec " ).add(getCid()).add ("cat").add(from).add(">").add(to).popen().verifyOrDieWith("Could not write the file " + from  + " to a file " + to);
         } catch (InterruptedException | IOException var7) {
             return false;
         }
+        return true;
     }
 
     public String getLoginConfPath() {

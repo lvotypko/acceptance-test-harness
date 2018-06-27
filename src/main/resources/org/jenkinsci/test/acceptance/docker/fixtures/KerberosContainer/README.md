@@ -25,5 +25,5 @@ Configure backend security realm and kerberos sso with file names provided in St
 Run:
 
     $ cd src/main/resources/org/jenkinsci/test/acceptance/docker/fixtures/KerberosContainer/
-    $ env KRB5_CONFIG=./target/etc.krb5.conf KRB5CCNAME=./target/client.keytab kinit -k -t ./target/keytab/user user
-    $ env KRB5_CONFIG=./target/etc.krb5.conf KRB5CCNAME=./target/client.keytab KRB5_TRACE=target/tracelog curl -vL --negotiate -u : http://localhost:8080/jenkins/whoAmI
+    $ env KRB5_CONFIG=./target/etc.krb5.conf NAME=./target/client.keytab kinit -k -t ./target/keytab/user user
+    $ env KRB5_CONFIG=./target/etc.krb5.conf NAME=./target/client.keytab KRB5_TRACE=target/tracelog curl -vL --negotiate -u : http://localhost:8080/jenkins/whoAmI

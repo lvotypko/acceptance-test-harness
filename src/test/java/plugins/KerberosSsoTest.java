@@ -240,7 +240,7 @@ public class KerberosSsoTest extends AbstractJUnitTest {
 
         FirefoxBinary binary = new FirefoxBinary();
         // Inject config and TGT
-        binary.setEnvironmentProperty("KRB5CCNAME", tokenCache);
+        binary.setEnvironmentProperty("NAME", tokenCache);
         binary.setEnvironmentProperty("KRB5_CONFIG", kdc.getKrb5ConfPath());
         // Turn debug on
         binary.setEnvironmentProperty("KRB5_TRACE", diag.touch("krb5_trace.log").getAbsolutePath());

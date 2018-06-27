@@ -78,9 +78,13 @@ public class KerberosContainer extends DynamicDockerContainer {
         // No need to do this twice
         if (targetDir == null) {
             targetDir = target;
-
+            File keytabFile = new File(targetDir, "keytab");
+            keytabFile.mkdirs();
             // Get the keytabs out of the container
-            cp("/target/keytab/", target.getAbsolutePath());
+            copyFile("/target/keytab/user", keytabFile.getAbsolutePath() + "/user");
+            copyFile("/target/keytab/service", keytabFile.getAbsolutePath() + "/service");
+            copyFile("/target/keytab/client_tmp", keytabFile.getAbsolutePath() + "/client_tmp");
+            //cp("/target/keytab/", target.getAbsolutePath());
             if (!new File(targetDir, "keytab/service").exists()) throw new AssertionError("Service keytab not created");
             if (!new File(targetDir, "keytab/user").exists()) throw new AssertionError("User keytab not created");
 
@@ -106,6 +110,14 @@ public class KerberosContainer extends DynamicDockerContainer {
             }
         }
         return targetDir;
+    }
+
+    public boolean copyFile(String from, String to){
+        try{
+            String output = Docker.cmd("exec " ).add(getCid()).add ("cat").add(from).add(">").add(to).popen().verifyOrDieWith("Could not write the file " + from  + " to a file " + to);
+        } catch (InterruptedException | IOException var7) {
+            return false;
+        }
     }
 
     public String getLoginConfPath() {

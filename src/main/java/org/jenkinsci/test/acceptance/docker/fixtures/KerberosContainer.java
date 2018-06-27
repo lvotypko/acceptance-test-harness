@@ -23,6 +23,7 @@
  */
 package org.jenkinsci.test.acceptance.docker.fixtures;
 
+import org.apache.commons.io.FileUtils;
 import org.jenkinsci.test.acceptance.docker.Docker;
 import org.jenkinsci.test.acceptance.docker.DockerFixture;
 import org.jenkinsci.test.acceptance.docker.DynamicDockerContainer;
@@ -31,6 +32,7 @@ import org.jenkinsci.utils.process.CommandBuilder;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -115,7 +117,8 @@ public class KerberosContainer extends DynamicDockerContainer {
 
     public boolean copyFile(String from, String to){
         try{
-            String output = Docker.cmd("exec " ).add(getCid()).add ("cat").add(from).add(">").add(to).popen().verifyOrDieWith("Could not write the file " + from  + " to a file " + to);
+            String output = Docker.cmd("exec " ).add(getCid()).add ("cat" + from).popen().verifyOrDieWith("Could not read the file ");
+            FileUtils.write(new File(to), output);
             System.err.println("output " + output);
         } catch (InterruptedException | IOException var7) {
             return false;

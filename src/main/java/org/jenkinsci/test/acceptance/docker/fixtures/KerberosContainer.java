@@ -117,8 +117,10 @@ public class KerberosContainer extends DynamicDockerContainer {
 
     public boolean copyFile(String from, String to){
         try{
-            String output = Docker.cmd("exec " ).add(getCid()).add ("cat " + from).add("> " + to).popen().verifyOrDieWith("Could not read the file ");
-            FileUtils.write(new File(to), output);
+            String output = Docker.cmd("exec " ).add(getCid()).add ("cat " + from).add("> " + to).popen().asText();
+            File file = new File(to);
+            FileUtils.write(file, output);
+            System.err.println("file exit??? " + file.exists());
             System.err.println("output " + output);
         } catch (InterruptedException | IOException var7) {
             return false;

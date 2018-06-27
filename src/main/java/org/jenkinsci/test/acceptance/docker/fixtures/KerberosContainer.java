@@ -80,6 +80,7 @@ public class KerberosContainer extends DynamicDockerContainer {
             targetDir = target;
             File keytabFile = new File(targetDir, "keytab");
             keytabFile.mkdirs();
+            System.err.println("keytab" + keytabFile.getAbsolutePath() + " " + keytabFile.exists());
             // Get the keytabs out of the container
             copyFile("/target/keytab/user", keytabFile.getAbsolutePath() + "/user");
             copyFile("/target/keytab/service", keytabFile.getAbsolutePath() + "/service");
@@ -114,7 +115,8 @@ public class KerberosContainer extends DynamicDockerContainer {
 
     public boolean copyFile(String from, String to){
         try{
-            Docker.cmd("exec " ).add(getCid()).add ("cat").add(from).add(">").add(to).popen().verifyOrDieWith("Could not write the file " + from  + " to a file " + to);
+            String output = Docker.cmd("exec " ).add(getCid()).add ("cat").add(from).add(">").add(to).popen().verifyOrDieWith("Could not write the file " + from  + " to a file " + to);
+            System.err.println("output " + output);
         } catch (InterruptedException | IOException var7) {
             return false;
         }

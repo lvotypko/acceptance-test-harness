@@ -87,7 +87,7 @@ public class KerberosContainer extends DynamicDockerContainer {
             copyFile("/target/keytab", keytabFile.getAbsolutePath() + "/user");
 
             try {
-                FileUtils.copyDirectory(new File("/datavolume/keytab"), targetDir);
+                FileUtils.copyDirectory(new File("/datavolume1/keytab"), targetDir);
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -180,6 +180,11 @@ public class KerberosContainer extends DynamicDockerContainer {
         );
 
         copyFile(innerPath, outerPath);
+        try {
+            FileUtils.copyDirectory(new File("/datavolume1/keytab/client_tmp"), targetDir);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         assertTrue("Token cache exported", new File(outerPath).exists());
         return outerPath;
     }

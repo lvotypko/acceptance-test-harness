@@ -12,6 +12,7 @@ import javax.inject.Provider;
 import java.io.File;
 import java.io.IOException;
 import org.jenkinsci.test.acceptance.docker.DockerImage.Starter;
+import org.jenkinsci.utils.process.CommandBuilder;
 
 /**
  * Inject this object to automate the cleanup of a running container at the end of the test case.
@@ -46,7 +47,9 @@ public class DockerContainerHolder<T extends DockerContainer> implements Provide
     public synchronized T get() {
         if (container==null) {
             try {
-                container = starter().start();
+                CommandBuilder builder = new CommandBuilder();
+                builder.add("-v").add("DataVolume1:/datavolume1");
+                container = starter().withArgs(builder).start();
             } catch (InterruptedException | IOException e) {
                 throw new Error("Failed to start container - " + type, e);
             }

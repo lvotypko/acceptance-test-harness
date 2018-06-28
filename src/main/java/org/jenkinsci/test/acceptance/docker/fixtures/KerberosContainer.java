@@ -174,7 +174,7 @@ public class KerberosContainer extends DynamicDockerContainer {
                 .verifyOrDieWith("Unable to get ticket granting ticket")
         );
 
-        cp(innerPath, outerPath);
+        copyFile(innerPath, outerPath);
         assertTrue("Token cache exported", new File(outerPath).exists());
         return outerPath;
     }

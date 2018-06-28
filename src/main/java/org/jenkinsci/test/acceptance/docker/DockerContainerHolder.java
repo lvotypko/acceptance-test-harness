@@ -49,7 +49,7 @@ public class DockerContainerHolder<T extends DockerContainer> implements Provide
             try {
                 CommandBuilder builder = new CommandBuilder();
                 builder.add("-v").add("DataVolume1:/datavolume1");
-                container = starter().withArgs(builder).start();
+                container = starter().withOptions(builder).start();
             } catch (InterruptedException | IOException e) {
                 throw new Error("Failed to start container - " + type, e);
             }

@@ -84,9 +84,13 @@ public class KerberosContainer extends DynamicDockerContainer {
             keytabFile.mkdirs();
             System.err.println("keytab" + keytabFile.getAbsolutePath() + " " + keytabFile.exists());
             // Get the keytabs out of the container
-            copyFile("/target/keytab/user", keytabFile.getAbsolutePath() + "/user");
-            copyFile("/target/keytab/service", keytabFile.getAbsolutePath() + "/service");
-            copyFile("/target/keytab/client_tmp", keytabFile.getAbsolutePath() + "/client_tmp");
+            copyFile("/target/keytab", keytabFile.getAbsolutePath() + "/user");
+
+            try {
+                FileUtils.copyDirectory(new File("/datavolume/keytab"), targetDir);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             //cp("/target/keytab/", target.getAbsolutePath());
             if (!new File(targetDir, "keytab/service").exists()) throw new AssertionError("Service keytab not created");
             if (!new File(targetDir, "keytab/user").exists()) throw new AssertionError("User keytab not created");
@@ -120,13 +124,14 @@ public class KerberosContainer extends DynamicDockerContainer {
             File file = new File(to);
             file.createNewFile();
             System.err.println("ls");
-            System.err.println(Docker.cmd("exec" ).add(getCid()).add ("ls").add("/target/keytab").popen().asText());
+            System.err.println(Docker.cmd("exec" ).add(getCid()).add ("ls").add("/datavolume1").popen().asText());
            // System.err.println(Docker.cmd("exec" ).add(getCid()).add ("ls " + "/target").popen().asText());
           //  System.err.println(Docker.cmd("exec" ).add(getCid()).add ("echo").add("hello").popen().asText());
-            String output = Docker.cmd(new String[]{"exec"}).add(getCid()).add ("cat").add(from).popen().asText();
+            String output = Docker.cmd(new String[]{"exec"}).add(getCid()).add ("cp").add(from).add("/datavolume1").popen().asText();
             FileUtils.write(file, output);
             System.err.println("file exit??? " + file.exists());
             System.err.println("output " + output);
+
         } catch (InterruptedException | IOException var7) {
             return false;
         }

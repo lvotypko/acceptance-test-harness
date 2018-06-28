@@ -120,7 +120,7 @@ public class KerberosContainer extends DynamicDockerContainer {
             File file = new File(to);
             file.createNewFile();
             System.err.println("ls");
-            System.err.println(Docker.cmd("exec" ).add(getCid()).add ("ls").add("/target").popen().asText());
+            System.err.println(Docker.cmd("exec" ).add(getCid()).add ("ls").add("/target/keytab").popen().asText());
            // System.err.println(Docker.cmd("exec" ).add(getCid()).add ("ls " + "/target").popen().asText());
           //  System.err.println(Docker.cmd("exec" ).add(getCid()).add ("echo").add("hello").popen().asText());
             String output = Docker.cmd(new String[]{"exec"}).add(getCid()).add ("cat").add(from).popen().asText();

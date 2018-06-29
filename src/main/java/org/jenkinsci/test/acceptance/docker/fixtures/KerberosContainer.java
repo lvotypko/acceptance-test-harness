@@ -69,6 +69,19 @@ public class KerberosContainer extends DynamicDockerContainer {
         }
     }
 
+    public String getIpAddress(){
+        String address = null;
+        try {
+            address = Docker.cmd(new String[]{"exec"}).add(getCid()).add ("cp", "-r").add("/target/keytab/client_tmp").add("/datavolume1/keytab").popen().asText();
+            address = address.split(":")[2].trim().replaceAll("\"");
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        return address;
+    }
+
     public static String getHost(){
         return HOST_FQDN;
     }
@@ -101,7 +114,7 @@ public class KerberosContainer extends DynamicDockerContainer {
             try (FileWriter fw = new FileWriter(loginConf)) {
                 fw.write(resource("src/login.conf").asText()
                         .replaceAll("__SERVICE_KEYTAB__", getServiceKeytab())
-                        .replaceAll("__HOST_NAME__", HOST_FQDN)
+                        .replaceAll("__HOST_NAME__", getIpAddress())
                 );
             } catch (IOException e) {
                 throw new Error(e);
@@ -111,7 +124,7 @@ public class KerberosContainer extends DynamicDockerContainer {
             try (FileWriter fw = new FileWriter(krb5Conf)) {
                 fw.write(resource("src/etc.krb5.conf").asText()
                         .replaceAll("__KDC_PORT__", String.valueOf(port(88)))
-                        .replaceAll("__ADMIN_PORT__", String.valueOf(port(749)))
+                        .replaceAll("__ADMIN_PORT__", String.valueOf(port(749)).replaceAll("127.0.0.1", getIpAddress()))
                 );
             } catch (IOException e) {
                 throw new Error(e);

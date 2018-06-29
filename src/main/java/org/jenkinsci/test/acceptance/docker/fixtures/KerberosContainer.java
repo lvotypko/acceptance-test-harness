@@ -126,7 +126,12 @@ public class KerberosContainer extends DynamicDockerContainer {
                         .replaceAll("__KDC_PORT__", String.valueOf(port(88)))
                         .replaceAll("__ADMIN_PORT__", String.valueOf(port(749)).replaceAll("127.0.0.1", getIpAddress()))
                 );
-            } catch (IOException e) {
+                System.err.println(resource("src/etc.krb5.conf").asText()
+                        .replaceAll("__KDC_PORT__", String.valueOf(port(88)))
+                        .replaceAll("__ADMIN_PORT__", String.valueOf(port(749)).replaceAll("127.0.0.1", getIpAddress()))
+                );
+
+                } catch (IOException e) {
                 throw new Error(e);
             }
         }

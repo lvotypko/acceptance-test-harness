@@ -84,7 +84,7 @@ public class KerberosContainer extends DynamicDockerContainer {
             keytabFile.mkdirs();
             System.err.println("keytab" + keytabFile.getAbsolutePath() + " " + keytabFile.exists());
             // Get the keytabs out of the container
-            copyFile("/target/keytab", keytabFile.getAbsolutePath() + "/user");
+            copyFile("/target/keytab", keytabFile.getAbsolutePath());
 
             try {
                 FileUtils.copyDirectory(new File("/datavolume1/keytab"), targetDir);
@@ -121,16 +121,13 @@ public class KerberosContainer extends DynamicDockerContainer {
 
     public boolean copyFile(String from, String to){
         try{
-            File file = new File(to);
-            file.createNewFile();
+
             System.err.println("ls");
             System.err.println(Docker.cmd("exec" ).add(getCid()).add ("ls").add("/datavolume1").popen().asText());
            // System.err.println(Docker.cmd("exec" ).add(getCid()).add ("ls " + "/target").popen().asText());
           //  System.err.println(Docker.cmd("exec" ).add(getCid()).add ("echo").add("hello").popen().asText());
-            String output = Docker.cmd(new String[]{"exec"}).add(getCid()).add ("cp", "-r").add(from).add("/datavolume1").popen().asText();
-            output = Docker.cmd(new String[]{"exec"}).add(getCid()).add ("chown", "-R").add("17386").add("/datavolume1/keytab/").popen().asText();
-            FileUtils.write(file, output);
-            System.err.println("file exit??? " + file.exists());
+            Docker.cmd(new String[]{"exec"}).add(getCid()).add ("cp", "-r").add(from).add("/datavolume1").popen().asText();
+            String output = Docker.cmd(new String[]{"exec"}).add(getCid()).add ("chown", "-R").add("17386").add("/datavolume1/keytab/").popen().asText();
             System.err.println("output " + output);
 
         } catch (InterruptedException | IOException var7) {

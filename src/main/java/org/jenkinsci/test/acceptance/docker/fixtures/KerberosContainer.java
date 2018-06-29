@@ -73,6 +73,7 @@ public class KerberosContainer extends DynamicDockerContainer {
         String address = null;
         try {
             address = Docker.cmd(new String[]{"inspect"}).add(getCid()).add ("|grep", "IPAddress").popen().asText();
+            System.err.println(address);
             address = address.split(":")[2].trim().replaceAll("\"", "");
         } catch (IOException e) {
             e.printStackTrace();
@@ -125,11 +126,11 @@ public class KerberosContainer extends DynamicDockerContainer {
             try (FileWriter fw = new FileWriter(krb5Conf)) {
                 fw.write(resource("src/etc.krb5.conf").asText()
                         .replaceAll("__KDC_PORT__", String.valueOf(port(88)))
-                        .replaceAll("__ADMIN_PORT__", String.valueOf(port(749)).replaceAll("127.0.0.1", getIpAddress()))
+                        .replaceAll("__ADMIN_PORT__", String.valueOf(port(749)).replaceAll("127/.0/.0/.1", getIpAddress()))
                 );
                 System.err.println(resource("src/etc.krb5.conf").asText()
                         .replaceAll("__KDC_PORT__", String.valueOf(port(88)))
-                        .replaceAll("__ADMIN_PORT__", String.valueOf(port(749)).replaceAll("127.0.0.1", getIpAddress()))
+                        .replaceAll("__ADMIN_PORT__", String.valueOf(port(749)).replaceAll("127/.0/.0/.1", getIpAddress()))
                 );
 
                 } catch (IOException e) {

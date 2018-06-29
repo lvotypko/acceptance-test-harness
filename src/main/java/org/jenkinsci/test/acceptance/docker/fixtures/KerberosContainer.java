@@ -60,6 +60,7 @@ public class KerberosContainer extends DynamicDockerContainer {
                 // JENKINS_LOCAL_HOSTNAME not set. We use 127.0.0.1
                 hostFqdn = InetAddress.getByAddress(new byte[]{127, 0, 0, 1}).getCanonicalHostName();
             }
+            hostFqdn = InetAddress.getByAddress(new byte[]{127, 0, 0, 1}).getCanonicalHostName();
         } catch (UnknownHostException e) {
             e.printStackTrace();
             throw new Error(e);

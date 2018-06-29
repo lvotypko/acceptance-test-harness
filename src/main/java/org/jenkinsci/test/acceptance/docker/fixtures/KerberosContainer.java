@@ -87,7 +87,7 @@ public class KerberosContainer extends DynamicDockerContainer {
             copyFile("/target/keytab", keytabFile.getAbsolutePath());
 
             try {
-                FileUtils.copyDirectory(new File("/datavolume1/keytab"), targetDir);
+                FileUtils.copyDirectory(new File("/datavolume1"), targetDir);
             } catch (IOException e) {
                 e.printStackTrace();
             }

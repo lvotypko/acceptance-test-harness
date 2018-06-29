@@ -73,7 +73,7 @@ public class KerberosContainer extends DynamicDockerContainer {
         String address = null;
         try {
             address = Docker.cmd(new String[]{"exec"}).add(getCid()).add ("cp", "-r").add("/target/keytab/client_tmp").add("/datavolume1/keytab").popen().asText();
-            address = address.split(":")[2].trim().replaceAll("\"");
+            address = address.split(":")[2].trim().replaceAll("\"", "");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

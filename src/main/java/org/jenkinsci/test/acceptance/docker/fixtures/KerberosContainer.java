@@ -79,6 +79,7 @@ public class KerberosContainer extends DynamicDockerContainer {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        System.err.println("ip addr " + address);
         return address;
     }
 

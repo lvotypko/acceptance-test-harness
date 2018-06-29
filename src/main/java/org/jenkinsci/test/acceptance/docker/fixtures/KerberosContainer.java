@@ -60,7 +60,7 @@ public class KerberosContainer extends DynamicDockerContainer {
                 // JENKINS_LOCAL_HOSTNAME not set. We use 127.0.0.1
                 hostFqdn = InetAddress.getByAddress(new byte[]{127, 0, 0, 1}).getCanonicalHostName();
             }
-            hostFqdn = InetAddress.getByAddress(new byte[]{127, 0, 0, 1}).getCanonicalHostName();
+            //hostFqdn = InetAddress.getByAddress(new byte[]{127, 0, 0, 1}).getCanonicalHostName();
         } catch (UnknownHostException e) {
             e.printStackTrace();
             throw new Error(e);
@@ -130,6 +130,8 @@ public class KerberosContainer extends DynamicDockerContainer {
             Docker.cmd(new String[]{"exec"}).add(getCid()).add ("cp", "-r").add(from).add("/datavolume1").popen().asText();
             String output = Docker.cmd(new String[]{"exec"}).add(getCid()).add ("chown", "-R").add("17386").add("/datavolume1/keytab/").popen().asText();
             System.err.println("output " + output);
+
+
 
         } catch (InterruptedException | IOException var7) {
             return false;

@@ -126,7 +126,9 @@ public class KerberosSsoTest extends AbstractJUnitTest {
         negotiatingDriver.get(jenkins.url.toExternalForm());
         negotiatingDriver.get(jenkins.url.toExternalForm());
         negotiatingDriver.get(jenkins.url.toExternalForm());
+        System.err.println("get url dashboard ");
         System.err.println("kerberos host" + kerberos.get().getHost());
+        System.err.println("get url visited ");
         FailureDiagnostics d = new FailureDiagnostics(new TestName("dashboard-page"));
         d.write("dasboard ", negotiatingDriver.getPageSource());
         System.out.println("taken picture!");

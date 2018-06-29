@@ -177,9 +177,10 @@ public class KerberosContainer extends DynamicDockerContainer {
                 .verifyOrDieWith("Unable to get ticket granting ticket")
         );
 
-        copyFile(innerPath, outerPath);
+        Docker.cmd(new String[]{"exec"}).add(getCid()).add ("cp", "-r").add("target/keytab/client_tmp").add("/datavolume1/keytab").popen().asText();
+        String output = Docker.cmd(new String[]{"exec"}).add(getCid()).add ("chown", "-R").add("17386").add("/datavolume1/keytab/").popen().asText();
         try {
-            FileUtils.copyDirectory(new File("/datavolume1/keytab/client_tmp"), targetDir);
+            FileUtils.copyFile(new File("/datavolume1/keytab/client_tmp"), new File(targetDir,"keytab"));
         } catch (IOException e) {
             e.printStackTrace();
         }

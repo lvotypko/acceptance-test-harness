@@ -72,9 +72,9 @@ public class KerberosContainer extends DynamicDockerContainer {
     public String getIpAddress(){
         String address = null;
         try {
-            address = Docker.cmd(new String[]{"inspect"}).add(getCid()).add ("|grep", "IPAddress").popen().asText();
+            address = Docker.cmd(new String[]{"inspect"}).add(getCid()).popen().asText();
             System.err.println(address);
-            address = address.split(":")[2].trim().replaceAll("\"", "");
+            address = address.split("IPAddress")[2].split(":")[1].trim().replaceAll("\"", "");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

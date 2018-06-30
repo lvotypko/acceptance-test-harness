@@ -74,7 +74,7 @@ public class KerberosContainer extends DynamicDockerContainer {
         try {
             address = Docker.cmd(new String[]{"inspect"}).add(getCid()).popen().asText();
             System.err.println(address);
-            address = address.split("IPAddress")[2].split(":")[1].trim().replaceAll("\"", "").replaceAll(",","");
+            address = address.split("IPAddress")[2].split(":")[1].split(",",2)[0].trim().replaceAll("\"", "").replaceAll(",","");
         } catch (IOException e) {
             e.printStackTrace();
         } catch (InterruptedException e) {

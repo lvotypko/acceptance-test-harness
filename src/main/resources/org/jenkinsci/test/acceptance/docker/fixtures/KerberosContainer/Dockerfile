@@ -18,7 +18,8 @@ RUN rm -f /dev/random && ln -s /dev/urandom /dev/random &&\
     /usr/sbin/kdb5_util create -s -P "ATH" &&\
     /usr/sbin/kadmin.local -w ATH -q "addprinc -pw ATH -clearpolicy -e des-cbc-md5:normal,des-cbc-crc:normal,rc4-hmac:normal user" &&\
     /usr/sbin/kadmin.local -w ATH -q "addprinc -pw ATH -clearpolicy -e des-cbc-md5:normal,des-cbc-crc:normal,rc4-hmac:normal HTTP/${HOST_NAME}" &&\
-    sed -i "s@__KDC_PORT__@88@g; s@__ADMIN_PORT__@749@g" /etc/krb5.conf
+    sed -i "s@__KDC_PORT__@88@g; s@__ADMIN_PORT__@749@g" /etc/krb5.conf &&\
+    sed -i "s@_ADDRESS_@${HOST_NAME}@g; s@_ADDRESS_@${HOST_NAME}@g" /etc/krb5.conf
 
 # Generate keytabs
 RUN mkdir -p /target/keytab &&\

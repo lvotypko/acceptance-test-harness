@@ -126,7 +126,7 @@ public class KerberosContainer extends DynamicDockerContainer {
             try (FileWriter fw = new FileWriter(krb5Conf)) {
                 fw.write(resource("src/etc.krb5.conf").asText()
                         .replaceAll("__KDC_PORT__", String.valueOf(port(88)))
-                        .replaceAll("__ADMIN_PORT__", String.valueOf(port(749)).replaceAll("_ADDRESS_", getIpAddress()))
+                        .replaceAll("__ADMIN_PORT__", String.valueOf(port(749))).replaceAll("_ADDRESS_", getIpAddress())
                 );
                 System.err.println(resource("src/etc.krb5.conf").asText()
                         .replaceAll("__KDC_PORT__", String.valueOf(port(88)))

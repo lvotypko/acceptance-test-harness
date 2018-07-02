@@ -10,12 +10,13 @@ RUN yum -y install\
     krb5-workstation \
     export
 
-RUN echo -n "export HOST_NAME=" > /tmp/hostname_export.sh
+RUN echo -n "export ADDRESS=" > /tmp/hostname_export.sh
 RUN hostname -I >> /tmp/hostname_export.sh
 RUN cat /tmp/hostname_export.sh
 RUN sh /tmp/hostname_export.sh
-RUN echo $HOST_NAME
-ENV HOST_NAME $HOST_NAME
+RUN echo "echo export ADDRESS=$ADDRESS > ~/.bashrc"
+RUN echo $ADDRESS
+ENV ADDRESS $ADDRESS
 
 ADD src/etc.krb5.conf /etc/krb5.conf
 ADD src/var.kerberos.krb5kdc.kadm5.acl /var/kerberos/krb5kdc/kadm5.acl
@@ -27,13 +28,13 @@ RUN echo $HOST_NAME
 RUN rm -f /dev/random && ln -s /dev/urandom /dev/random &&\
     /usr/sbin/kdb5_util create -s -P "ATH" &&\
     /usr/sbin/kadmin.local -w ATH -q "addprinc -pw ATH -clearpolicy -e des-cbc-md5:normal,des-cbc-crc:normal,rc4-hmac:normal user" &&\
-    /usr/sbin/kadmin.local -w ATH -q "addprinc -pw ATH -clearpolicy -e des-cbc-md5:normal,des-cbc-crc:normal,rc4-hmac:normal HTTP/${HOST_NAME}" &&\
+    /usr/sbin/kadmin.local -w ATH -q "addprinc -pw ATH -clearpolicy -e des-cbc-md5:normal,des-cbc-crc:normal,rc4-hmac:normal HTTP/${ADDRESS}" &&\
     sed -i "s@__KDC_PORT__@88@g; s@__ADMIN_PORT__@749@g" /etc/krb5.conf &&\
-    sed -i "s@_ADDRESS_@${HOST_NAME}@g; s@_ADDRESS_@${HOST_NAME}@g" /etc/krb5.conf
+    sed -i "s@_ADDRESS_@${ADDRESS}@g; s@_ADDRESS_@${ADDRESS}@g" /etc/krb5.conf
 
 # Generate keytabs
 RUN mkdir -p /target/keytab &&\
-    bash keytab.sh /target/keytab/service HTTP/${HOST_NAME}@EXAMPLE.COM &&\
+    bash keytab.sh /target/keytab/service HTTP/${ADDRESS}@EXAMPLE.COM &&\
     bash keytab.sh /target/keytab/user user@EXAMPLE.COM
 
 # Run the service

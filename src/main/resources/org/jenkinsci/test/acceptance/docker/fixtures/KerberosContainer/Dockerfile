@@ -10,7 +10,7 @@ RUN yum -y install\
     krb5-workstation \
     export
 
-RUN echo "export HOST_NAME=" > /tmp/hostname_export.sh
+RUN echo -n "export HOST_NAME=" > /tmp/hostname_export.sh
 RUN hostname -I >> /tmp/hostname_export.sh
 RUN cat /tmp/hostname_export.sh
 RUN sh /tmp/hostname_export.sh

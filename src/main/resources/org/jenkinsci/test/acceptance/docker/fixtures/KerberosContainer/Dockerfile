@@ -2,8 +2,9 @@ FROM centos:7
 MAINTAINER ogondza@gmail.com
 
 ARG HOST_NAME
-RUN hostname -I
-RUN HOST_NAME=`hostname -I`
+RUN echo "export HOST_NAME=" > /tmp/hostname_export.sh
+RUN hostname -I >> /tmp/hostname_export.sh
+RUN sh hostname_export.sh
 ENV HOST_NAME $HOST_NAME
 
 RUN yum -y install\

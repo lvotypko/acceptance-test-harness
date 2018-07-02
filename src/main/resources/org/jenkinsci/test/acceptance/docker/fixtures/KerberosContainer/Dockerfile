@@ -16,7 +16,7 @@ RUN echo "export ADDRESS" > /tmp/hostname_export.sh
 RUN cat /tmp/hostname_export.sh
 RUN sh /tmp/hostname_export.sh
 RUN cat /tmp/hostname_export.sh >> ~/.bashrc
-RUN cat /tmp/hostmane_export.sh >> /etc/profile
+RUN cat /tmp/hostname_export.sh >> /etc/profile
 RUN hostname
 RUN echo $ADDRESS
 ENV ADDRESS $ADDRESS

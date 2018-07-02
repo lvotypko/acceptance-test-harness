@@ -12,6 +12,7 @@ RUN yum -y install\
 
 RUN echo "export HOST_NAME=" > /tmp/hostname_export.sh
 RUN hostname -I >> /tmp/hostname_export.sh
+RUN cat /tmp/hostname_export.sh
 RUN sh /tmp/hostname_export.sh
 ENV HOST_NAME $HOST_NAME
 

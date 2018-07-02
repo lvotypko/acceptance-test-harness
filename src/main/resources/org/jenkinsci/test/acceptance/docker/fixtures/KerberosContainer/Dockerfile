@@ -14,7 +14,7 @@ RUN echo -n "export ADDRESS=" > /tmp/hostname_export.sh
 RUN hostname -I >> /tmp/hostname_export.sh
 RUN cat /tmp/hostname_export.sh
 RUN sh /tmp/hostname_export.sh
-RUN cat /tmp/hostname_export.sh >> ~/.bashrc"
+RUN cat /tmp/hostname_export.sh >> ~/.bashrc
 RUN hostname
 RUN echo $ADDRESS
 ENV ADDRESS $ADDRESS

@@ -2,15 +2,18 @@ FROM centos:7
 MAINTAINER ogondza@gmail.com
 
 ARG HOST_NAME
-RUN echo "export HOST_NAME=" > /tmp/hostname_export.sh
-RUN hostname -I >> /tmp/hostname_export.sh
-RUN sh /tmp/hostname_export.sh
-ENV HOST_NAME $HOST_NAME
+
 
 RUN yum -y install\
     krb5-libs\
     krb5-server\
-    krb5-workstation
+    krb5-workstation \
+    export
+
+RUN echo "export HOST_NAME=" > /tmp/hostname_export.sh
+RUN hostname -I >> /tmp/hostname_export.sh
+RUN sh /tmp/hostname_export.sh
+ENV HOST_NAME $HOST_NAME
 
 ADD src/etc.krb5.conf /etc/krb5.conf
 ADD src/var.kerberos.krb5kdc.kadm5.acl /var/kerberos/krb5kdc/kadm5.acl

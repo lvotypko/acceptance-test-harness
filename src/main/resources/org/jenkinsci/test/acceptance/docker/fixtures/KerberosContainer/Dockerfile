@@ -2,6 +2,7 @@ FROM centos:7
 MAINTAINER ogondza@gmail.com
 
 ARG HOST_NAME
+RUN HOST_NAME=`hostname -I`
 ENV HOST_NAME $HOST_NAME
 
 RUN yum -y install\

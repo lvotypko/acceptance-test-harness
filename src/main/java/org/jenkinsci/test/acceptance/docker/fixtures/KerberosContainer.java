@@ -213,10 +213,10 @@ public class KerberosContainer extends DynamicDockerContainer {
         return outerPath;
     }
 
-    @Override // TODO Can be replaced by build args that would require more flexible build customization to be implemented
-    protected String process(String contents) {
-        System.err.println("contents " + contents);
-        System.out.println("Replacing HOST_NAME with " + getIpAddress());
-        return contents.replace("${HOST_NAME}", getIpAddress());
-    }
+  //  @Override // TODO Can be replaced by build args that would require more flexible build customization to be implemented
+  //  protected String process(String contents) {
+  //      System.err.println("contents " + contents);
+  //      System.out.println("Replacing HOST_NAME with " + getIpAddress());
+  //      return contents.replace("${HOST_NAME}", getIpAddress());
+  //  }
 }

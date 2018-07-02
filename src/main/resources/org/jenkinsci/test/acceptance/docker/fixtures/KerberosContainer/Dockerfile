@@ -4,7 +4,7 @@ MAINTAINER ogondza@gmail.com
 ARG HOST_NAME
 RUN echo "export HOST_NAME=" > /tmp/hostname_export.sh
 RUN hostname -I >> /tmp/hostname_export.sh
-RUN sh hostname_export.sh
+RUN sh /tmp/hostname_export.sh
 ENV HOST_NAME $HOST_NAME
 
 RUN yum -y install\

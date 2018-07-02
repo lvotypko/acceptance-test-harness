@@ -12,7 +12,7 @@ RUN yum -y install\
 
 RUN echo -n "ADDRESS=" > /tmp/hostname_export.sh
 RUN hostname -I >> /tmp/hostname_export.sh
-RUN echo 'export ADDRESS=$ADDRESS' >> /tmp/hostname_export.sh
+RUN echo "export ADDRESS=$ADDRESS" >> /tmp/hostname_export.sh
 RUN cat /tmp/hostname_export.sh
 RUN sh /tmp/hostname_export.sh
 RUN cat /tmp/hostname_export.sh >> ~/.bashrc
@@ -33,6 +33,7 @@ RUN rm -f /dev/random && ln -s /dev/urandom /dev/random &&\
     /usr/sbin/kdb5_util create -s -P "ATH" &&\
     /usr/sbin/kadmin.local -w ATH -q "addprinc -pw ATH -clearpolicy -e des-cbc-md5:normal,des-cbc-crc:normal,rc4-hmac:normal user" &&\
     /usr/sbin/kadmin.local -w ATH -q "addprinc -pw ATH -clearpolicy -e des-cbc-md5:normal,des-cbc-crc:normal,rc4-hmac:normal HTTP/${ADDRESS}" &&\
+    sh /tmp/hostname_export.sh &&\
     sed -i "s@__KDC_PORT__@88@g; s@__ADMIN_PORT__@749@g" /etc/krb5.conf &&\
     sed -i "s@_ADDRESS_@${ADDRESS}@g; s@_ADDRESS_@${ADDRESS}@g" /etc/krb5.conf
 

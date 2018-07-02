@@ -12,7 +12,7 @@ RUN yum -y install\
 
 RUN echo -n "ADDRESS=" > /tmp/hostname_export.sh
 RUN hostname -I >> /tmp/hostname_export.sh
-RUN echo "export ADDRESS" >> /tmp/hostname_export.sh
+RUN echo "export $ADDRESS" >> /tmp/hostname_export.sh
 RUN cat /tmp/hostname_export.sh
 RUN sh /tmp/hostname_export.sh
 RUN cat /tmp/hostname_export.sh >> ~/.bashrc

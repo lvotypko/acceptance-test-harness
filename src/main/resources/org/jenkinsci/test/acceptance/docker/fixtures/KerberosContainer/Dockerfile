@@ -14,11 +14,14 @@ RUN echo -n "export HOST_NAME=" > /tmp/hostname_export.sh
 RUN hostname -I >> /tmp/hostname_export.sh
 RUN cat /tmp/hostname_export.sh
 RUN sh /tmp/hostname_export.sh
+RUN echo $HOST_NAME
 ENV HOST_NAME $HOST_NAME
 
 ADD src/etc.krb5.conf /etc/krb5.conf
 ADD src/var.kerberos.krb5kdc.kadm5.acl /var/kerberos/krb5kdc/kadm5.acl
 ADD src/keytab.sh keytab.sh
+
+RUN echo $HOST_NAME
 
 # Populate kdc database with principals
 RUN rm -f /dev/random && ln -s /dev/urandom /dev/random &&\

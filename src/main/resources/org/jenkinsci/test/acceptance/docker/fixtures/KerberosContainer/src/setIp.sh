@@ -1,6 +1,7 @@
 echo -n "ADDRESS=" > /.dockerenv
 hostname -I > /.dockerenv
 ADDRESS=`hostname -I`
+ADDRESS=`echo -e "${ADDRESS}" | tr -d '[:space:]'`
 rm -f /dev/random && ln -s /dev/urandom /dev/random
 /usr/sbin/kdb5_util create -s -P "ATH"
 /usr/sbin/kadmin.local -w ATH -q "addprinc -pw ATH -clearpolicy -e des-cbc-md5:normal,des-cbc-crc:normal,rc4-hmac:normal user" &&\

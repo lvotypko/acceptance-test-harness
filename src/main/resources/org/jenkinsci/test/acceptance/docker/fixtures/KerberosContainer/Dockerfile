@@ -10,9 +10,7 @@ RUN yum -y install\
     krb5-workstation \
     export
 
-RUN echo -n "ADDRESS=" > /tmp/hostname_export.sh
-RUN hostname -I >> /tmp/hostname_export.sh
-RUN echo "export ADDRESS" >> /tmp/hostname_export.sh
+ADD src/setIp.sh /tmp/hostname_export.sh
 RUN cat /tmp/hostname_export.sh
 RUN sh /tmp/hostname_export.sh
 RUN cat /tmp/hostname_export.sh >> ~/.bashrc

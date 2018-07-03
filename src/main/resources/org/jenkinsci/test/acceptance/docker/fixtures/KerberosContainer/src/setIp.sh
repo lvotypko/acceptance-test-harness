@@ -1,3 +1,3 @@
 ADDRESS=`hostname -I`
 export ADDRESS=$ADDRESS
-echo $ADDRESS
+echo "ADDRESS=$ADDRESS" > /.dockerenv

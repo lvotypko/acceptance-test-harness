@@ -16,9 +16,9 @@ RUN sh /tmp/hostname_export.sh
 RUN cat /tmp/hostname_export.sh >> ~/.bashrc
 RUN cat /tmp/hostname_export.sh >> /etc/profile
 RUN hostname
-RUN echo $(ADDRESS)
+RUN echo $ADDRESS
 RUN echo hello
-ENV ADDRESS $(ADDRESS)
+
 
 ADD src/etc.krb5.conf /etc/krb5.conf
 ADD src/var.kerberos.krb5kdc.kadm5.acl /var/kerberos/krb5kdc/kadm5.acl

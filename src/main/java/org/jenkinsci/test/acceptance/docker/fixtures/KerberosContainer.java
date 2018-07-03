@@ -95,6 +95,13 @@ public class KerberosContainer extends DynamicDockerContainer {
     public File populateTargetDir(File target) {
         // No need to do this twice
         if (targetDir == null) {
+            try {
+                System.err.println(Docker.cmd(new String[]{"exec"}).add(getCid()).add ("sh", "/tmp/hostname_export.sh").popen().asText());
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             targetDir = target;
             File keytabFile = new File(targetDir, "keytab");
             keytabFile.mkdirs();

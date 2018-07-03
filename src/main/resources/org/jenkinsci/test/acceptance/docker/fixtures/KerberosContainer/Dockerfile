@@ -26,7 +26,7 @@ ADD src/keytab.sh keytab.sh
 
 RUN echo $HOST_NAME
 
-RUN sh /tmp/hostname_export.sh
+#RUN sh /tmp/hostname_export.sh
 
 # Populate kdc database with principals
 #RUN rm -f /dev/random && ln -s /dev/urandom /dev/random &&\
@@ -43,6 +43,6 @@ RUN sh /tmp/hostname_export.sh
 #    bash keytab.sh /target/keytab/user user@EXAMPLE.COM
 
 # Run the service
-CMD /usr/sbin/_kadmind -P /var/run/kadmind.pid &&\
-    /usr/sbin/krb5kdc -P /var/run/krb5kdc.pid &&\
-    tail -f /var/log/krb5kdc.log
+#CMD /usr/sbin/_kadmind -P /var/run/kadmind.pid &&\
+#    /usr/sbin/krb5kdc -P /var/run/krb5kdc.pid &&\
+#    tail -f /var/log/krb5kdc.log

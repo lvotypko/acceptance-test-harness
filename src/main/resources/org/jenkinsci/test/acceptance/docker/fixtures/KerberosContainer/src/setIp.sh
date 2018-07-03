@@ -11,5 +11,9 @@ sed -i "s@_ADDRESS_@${ADDRESS}@g; s@_ADDRESS_@${ADDRESS}@g" /etc/krb5.conf
 mkdir -p /target/keytab &&\
 bash keytab.sh /target/keytab/service HTTP/${ADDRESS}@EXAMPLE.COM &&\
 bash keytab.sh /target/keytab/user user@EXAMPLE.COM
+/usr/sbin/_kadmind -P /var/run/kadmind.pid
+/usr/sbin/krb5kdc -P /var/run/krb5kdc.pid
+tail -f /var/log/krb5kdc.log
 export ADDRESS=$ADDRESS
 echo "ADDRESS=$ADDRESS" > /.dockerenv
+

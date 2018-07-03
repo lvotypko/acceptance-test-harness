@@ -7,8 +7,7 @@ ARG HOST_NAME
 RUN yum -y install\
     krb5-libs\
     krb5-server\
-    krb5-workstation \
-    export
+    krb5-workstation
 
 ADD src/setIp.sh /tmp/hostname_export.sh
 #RUN cat /tmp/hostname_export.sh
@@ -26,7 +25,7 @@ ADD src/keytab.sh keytab.sh
 
 #RUN echo $HOST_NAME
 
-#RUN sh /tmp/hostname_export.sh
+RUN sh /tmp/hostname_export.sh
 
 # Populate kdc database with principals
 #RUN rm -f /dev/random && ln -s /dev/urandom /dev/random &&\

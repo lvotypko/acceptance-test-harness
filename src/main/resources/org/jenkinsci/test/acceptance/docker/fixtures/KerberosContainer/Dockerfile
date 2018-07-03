@@ -11,13 +11,13 @@ RUN yum -y install\
     export
 
 ADD src/setIp.sh /tmp/hostname_export.sh
-RUN cat /tmp/hostname_export.sh
-RUN sh /tmp/hostname_export.sh
+#RUN cat /tmp/hostname_export.sh
+#RUN sh /tmp/hostname_export.sh
 #RUN cat /tmp/hostname_export.sh >> ~/.bashrc
 #RUN cat /tmp/hostname_export.sh >> /etc/profile
-RUN hostname
-RUN echo $ADDRESS
-RUN echo hello
+#RUN hostname
+#RUN echo $ADDRESS
+#RUN echo hello
 
 
 ADD src/etc.krb5.conf /etc/krb5.conf

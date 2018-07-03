@@ -24,7 +24,7 @@ ADD src/etc.krb5.conf /etc/krb5.conf
 ADD src/var.kerberos.krb5kdc.kadm5.acl /var/kerberos/krb5kdc/kadm5.acl
 ADD src/keytab.sh keytab.sh
 
-RUN echo $HOST_NAME
+#RUN echo $HOST_NAME
 
 #RUN sh /tmp/hostname_export.sh
 

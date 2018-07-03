@@ -13,8 +13,8 @@ RUN yum -y install\
 ADD src/setIp.sh /tmp/hostname_export.sh
 RUN cat /tmp/hostname_export.sh
 RUN sh /tmp/hostname_export.sh
-RUN cat /tmp/hostname_export.sh >> ~/.bashrc
-RUN cat /tmp/hostname_export.sh >> /etc/profile
+#RUN cat /tmp/hostname_export.sh >> ~/.bashrc
+#RUN cat /tmp/hostname_export.sh >> /etc/profile
 RUN hostname
 RUN echo $ADDRESS
 RUN echo hello
@@ -25,6 +25,8 @@ ADD src/var.kerberos.krb5kdc.kadm5.acl /var/kerberos/krb5kdc/kadm5.acl
 ADD src/keytab.sh keytab.sh
 
 RUN echo $HOST_NAME
+
+RUN sh /tmp/hostname_export.sh
 
 # Populate kdc database with principals
 #RUN rm -f /dev/random && ln -s /dev/urandom /dev/random &&\

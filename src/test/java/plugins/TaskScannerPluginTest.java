@@ -731,18 +731,19 @@ public class TaskScannerPluginTest extends AbstractAnalysisTest<TaskScannerActio
      */
     private FreeStyleJob status_thresholds_step7(final FreeStyleJob job, final TaskScannerAction action) {
         job.configure();
-        job.addShellStep("NEW=\"CLOSED\"\n" +
+        job.addShellStep( "#!/bin/bash\n" +
+                "NEW=\"CLOSED\"\n" +
                 "for t in \"todo\" \"TODO\" \"XXX\" \"fixme\" \"FIXME\" \"Deprecated\"\n" +
                 "do\n" +
                 "  OLD=$t\n" +
                 "  for f in `ls`\n" +
                 "  do\n" +
                 "    if [ -f $f -a -r $f ]; then\n" +
-                "      if file --mime-type $f | grep -q \"^${f}: text/\"; then\n" +
+                "      if [ $f = ${f%.java*}.java ]; then\n" +
                 "        sed \"s/$OLD/$NEW/\" \"$f\" > \"${f}.new\"\n" +
                 "        mv \"${f}.new\" \"$f\"\n" +
                 "      else\n" +
-                "        echo \"Info: $f is not a text file. Skipped.\"\n" +
+                "        echo \"Info: $f is not a *.java file. Skipped.\"\n" +
                 "      fi" +
                 "    else\n" +
                 "      echo \"Error: Cannot read $f\"\n" +
@@ -752,7 +753,7 @@ public class TaskScannerPluginTest extends AbstractAnalysisTest<TaskScannerActio
         job.save();
 
         Build lastBuild = buildSuccessfulJob(job);
-
+        System.out.println(lastBuild.getConsole());
         lastBuild.open();
 
         assertThatOpenTaskCountLinkIs(action, 1, 17);

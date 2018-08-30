@@ -1,7 +1,9 @@
 package plugins;
 
+import net.schmizz.sshj.connection.channel.Window;
 import org.hamcrest.CoreMatchers;
 import org.hamcrest.Matchers;
+import org.jenkinsci.test.acceptance.controller.LocalController;
 import org.jenkinsci.test.acceptance.docker.DockerContainerHolder;
 import org.jenkinsci.test.acceptance.docker.fixtures.SvnContainer;
 import org.jenkinsci.test.acceptance.junit.AbstractJUnitTest;
@@ -210,6 +212,8 @@ public class SubversionPluginTest extends AbstractJUnitTest {
 
         f.save();
         f.startBuild().shouldSucceed();
+        System.err.println(f.getLastBuild().getConsole());
+        jenkins.getConfigPage();
 
         f.configure();
         subversionScm.url.set(svnContainer.getUrlUnsaveRepoAtRevision(2));

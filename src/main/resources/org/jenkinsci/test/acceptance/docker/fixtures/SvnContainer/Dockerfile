@@ -72,5 +72,5 @@ RUN /usr/sbin/apache2 && svn checkout http://127.0.0.1/svn /svnRepo && svn add /
 CMD ["/usr/bin/supervisord"]
 
 EXPOSE 22
-EXPOSE 81
+EXPOSE 8080
 EXPOSE 3690

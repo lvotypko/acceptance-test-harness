@@ -15,7 +15,7 @@ import java.net.URL;
  *
  * @author Matthias Karl
  */
-@DockerFixture(id = "svn", ports = {81, 3690, 22})
+@DockerFixture(id = "svn", ports = {8080, 3690, 22})
 public class SvnContainer extends DockerContainer {
     public static final String USER = "svnUser";
     public static final String PWD = "test";
@@ -33,7 +33,7 @@ public class SvnContainer extends DockerContainer {
      * @throws SubversionPluginTestException e
      */
     public URL getHttpUrl() throws SubversionPluginTestException {
-        String url = PROTOCOL_HTTP + ipBound(81) + ':' + port(81);
+        String url = PROTOCOL_HTTP + ipBound(8080) + ':' + port(8080);
         return createUrl(url);
     }
 

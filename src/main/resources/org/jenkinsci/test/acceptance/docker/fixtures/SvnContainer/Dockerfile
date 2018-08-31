@@ -32,6 +32,9 @@ RUN /usr/sbin/a2enmod auth_digest && \
     rm /etc/apache2/mods-available/dav_svn.conf
 ADD ./config/dav_svn.conf /etc/apache2/mods-available/dav_svn.conf
 
+#Specify different listening port
+RUN sed "s/Listen 80/Listen 8080/" "/etc/apache2/ports.conf"
+
 # Create password files. Pre-created with "svnUser"/"test" username and password.
 RUN mkdir -p /etc/subversion
 ADD ./config/passwd.htpasswd /etc/subversion/passwd.htpasswd

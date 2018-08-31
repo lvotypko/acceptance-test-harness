@@ -34,6 +34,8 @@ ADD ./config/dav_svn.conf /etc/apache2/mods-available/dav_svn.conf
 
 #Specify different listening port
 RUN sed "s/Listen 80/Listen 8080/" "/etc/apache2/ports.conf" > /etc/apache2/ports.conf
+RUN sed "s/NameVirtualHost *:80/NameVirtualHost *:8080/" "/etc/apache2/ports.conf" > /etc/apache2/ports.conf
+
 
 RUN cat /etc/apache2/ports.conf
 

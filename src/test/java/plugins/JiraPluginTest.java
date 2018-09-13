@@ -8,8 +8,10 @@ import org.jenkinsci.test.acceptance.docker.DockerContainerHolder;
 import org.jenkinsci.test.acceptance.docker.fixtures.JiraContainer;
 import org.jenkinsci.test.acceptance.junit.AbstractJUnitTest;
 import org.jenkinsci.test.acceptance.junit.DockerTest;
+import org.jenkinsci.test.acceptance.junit.WithCredentials;
 import org.jenkinsci.test.acceptance.junit.WithDocker;
 import org.jenkinsci.test.acceptance.junit.WithPlugins;
+import org.jenkinsci.test.acceptance.plugins.credentials.UserPwdCredential;
 import org.jenkinsci.test.acceptance.plugins.git.GitRepo;
 import org.jenkinsci.test.acceptance.plugins.git.GitScm;
 import org.jenkinsci.test.acceptance.plugins.jira.JiraGlobalConfig;
@@ -44,6 +46,7 @@ public class JiraPluginTest extends AbstractJUnitTest {
     }
 
     @Test
+    @WithCredentials( credentialType = WithCredentials.USERNAME_PASSWORD, values = {"admin", "admin"}, id = "admin")
     public void jira_ticket_gets_updated_with_a_build_link() throws Exception {
         JiraContainer jira = docker.get();
         jira.waitForReady(this);

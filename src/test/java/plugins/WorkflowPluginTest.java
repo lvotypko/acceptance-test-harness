@@ -201,7 +201,7 @@ public class WorkflowPluginTest extends AbstractJUnitTest {
         } catch (AssertionError x) { // cf. linearFlow
             build.shouldBeUnstable();
         }
-        assertThat(build.getConsole(), containsString("No record available"));
+        assertThat(build.getConsole(), containsString("executing everything in one place"));
 
         build = job.startBuild();
         try {

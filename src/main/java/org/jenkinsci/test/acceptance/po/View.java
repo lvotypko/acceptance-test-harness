@@ -61,6 +61,7 @@ public abstract class View extends ContainerPageObject {
     @Override
     public void save() {
         clickButton("OK");
+        System.err.println("ok was done");
         assertThat(driver, not(hasContent("This page expects a form submission")));
     }
 

@@ -160,7 +160,6 @@ public class Jenkins extends Node implements Container {
     public void restart() {
         visit("restart");
         clickButton("Yes");
-
         // Poll until we have the real page
         waitFor(driver).withTimeout(JenkinsController.STARTUP_TIMEOUT, TimeUnit.SECONDS)
                 .ignoring(

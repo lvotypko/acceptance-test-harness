@@ -83,7 +83,12 @@ public class DashboardViewPluginTest extends AbstractJobRelatedTest {
         JobsGridPortlet jobsGridPortlet = v.addBottomPortlet(JobsGridPortlet.class);
 
         jobsGridPortlet.setNumberOfColumns(10);
-        v.save();
+        try {
+            v.save();
+        }
+        catch(Exception ex){
+            throw new NoSuchElementException("more details", ex);
+        }
         assertThat(jobsGridPortlet.getJob(1, 10), nullValue());
     }
 
@@ -449,9 +454,11 @@ public class DashboardViewPluginTest extends AbstractJobRelatedTest {
     @Test
     public void testPortletPositioning_topPortlets(){
         DashboardView v = createDashboardView();
+        System.out.println("adding");
         v.addTopPortlet(TestStatisticsChartPortlet.class);
+        System.out.println("saving");
         v.save();
-
+        System.err.println("save was done ");
         createFreeStyleJob();
 
         assertThat(v.getPortletInTopTable(TestStatisticsChartPortlet.TEST_STATISTICS_CHART), notNullValue());

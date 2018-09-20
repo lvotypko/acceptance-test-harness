@@ -3,10 +3,13 @@ package org.jenkinsci.test.acceptance.selenium;
 import java.io.IOException;
 
 import org.apache.commons.io.IOUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.events.AbstractWebDriverEventListener;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * Automatically scrolls the element into view.
@@ -80,6 +83,61 @@ public class Scroller extends AbstractWebDriverEventListener {
     private void scrollIntoView(WebElement e, WebDriver driver) {
         int eYCoord = e.getLocation().getY();
         int eXCoord = e.getLocation().getX();
-        ((JavascriptExecutor)driver).executeScript(scrollJs, eYCoord, eXCoord);
+        String id = e.getAttribute("id");
+
+        WebElement footer = driver.findElement(By.tagName("footer"));
+        System.err.println(e.getLocation() + " " + footer.getLocation() + " height " + e.getRect().getHeight() + " width " + e.getRect().getWidth());
+        WebElement response = (WebElement) ((JavascriptExecutor)driver).executeScript(scrollJs, eYCoord, eXCoord, id);
+        System.err.println(response);
+        if(response!=null && response.getAttribute("style").contains("bottom: 0px")){
+
+                System.err.println("sleep");
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e1) {
+                    e1.printStackTrace();
+                }
+
+        }
+       // System.err.println("footer " + driver.findElement(By.tagName("footer")).getLocation());
+      //  if(response!=null){
+      //      System.out.println("not the same element " +response  + " " + response.getTagName());
+      //      try {
+      //          Thread.sleep(1000);
+      //      } catch (InterruptedException e1) {
+      //          e1.printStackTrace();
+      //      }
+      //  }else{
+      //      System.out.println("si the same elemnt " + e.getLocation());
+
+//        }
+       // System.out.println("footer " + footer.getLocation());
+       // footer = driver.findElement(By.tagName("footer"));
+      //  System.out.println("foter now " + footer.getLocation());
+        //footer = driver.findElement(By.tagName("footer"));
+     //   try {
+     //       Thread.sleep(1);
+     //   } catch (InterruptedException e1) {
+     //       e1.printStackTrace();
+     //   }
+       // if(footer!=null && (footer.getLocation().getY() < (eYCoord+height) )){
+         //   System.err.println("wait for footer");
+     //       try {
+     //           Thread.sleep(1000);
+     //       } catch (InterruptedException e1) {
+     //           e1.printStackTrace();
+        //    }
+       // }
+      //  System.err.println("is visible scroller performed" + e.isDisplayed()  + " enabled " + e.isEnabled());
+      //  try {
+      //      Thread.sleep(1000);
+      //  } catch (InterruptedException e1) {
+       //     e1.printStackTrace();
+      //  }
+      //  System.out.println(ExpectedConditions.elementToBeClickable(e).apply(driver));
+       // e.getRect().getPoint();
+      //  System.err.println("is visible scroller sleep" + e.isDisplayed()  + " enabled " + e.isEnabled());
+      //  Object obj = ((JavascriptExecutor) driver).executeScript("return document.elementFromPoint(" + (eYCoord - 100) + "," +  (eXCoord - 200) + ");");
+
     }
 }

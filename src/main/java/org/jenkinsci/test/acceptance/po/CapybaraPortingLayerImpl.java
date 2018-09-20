@@ -19,6 +19,8 @@ import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.logging.LogEntry;
+import org.openqa.selenium.remote.RemoteWebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -93,7 +95,7 @@ public class CapybaraPortingLayerImpl implements CapybaraPortingLayer {
     @Override
     public void clickButton(String text) {
         WebElement e = find(by.button(text));
-        e.click();
+            e.click();
     }
 
     /**

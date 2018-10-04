@@ -250,7 +250,7 @@ public class KerberosSsoTest extends AbstractJUnitTest {
             environment.put("DISPLAY", display);
         }
         GeckoDriverService.Builder builder = new GeckoDriverService.Builder();
-        builder.usingDriverExecutable(new File(System.getProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY))).usingFirefoxBinary(binary).withEnvironment(environment);
+        builder.usingDriverExecutable(new File(System.getProperty(GeckoDriverService.GECKO_DRIVER_EXE_PROPERTY))).usingFirefoxBinary(binary).withEnvironment(environment);
         //builder.usingFirefoxBinary(binary);
         firefoxOptions.setBinary(binary);
         firefoxOptions.setProfile(profile);

@@ -53,6 +53,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runners.model.Statement;
+import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.firefox.FirefoxBinary;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
@@ -249,7 +250,7 @@ public class KerberosSsoTest extends AbstractJUnitTest {
             environment.put("DISPLAY", display);
         }
         GeckoDriverService.Builder builder = new GeckoDriverService.Builder();
-        builder.usingDriverExecutable(new File(System.getProperty("geckodriver"))).usingFirefoxBinary(binary).withEnvironment(environment);
+        builder.usingDriverExecutable(new File(System.getProperty(ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY))).usingFirefoxBinary(binary).withEnvironment(environment);
         //builder.usingFirefoxBinary(binary);
         firefoxOptions.setBinary(binary);
         firefoxOptions.setProfile(profile);

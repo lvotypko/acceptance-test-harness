@@ -217,6 +217,7 @@ public class FallbackConfig extends AbstractModule {
             @Override
             public void evaluate() throws Throwable {
                 try {
+                    d.close();
                     d.quit();
                 } catch (UnreachableBrowserException ex) {
                     System.err.println("Browser died already");

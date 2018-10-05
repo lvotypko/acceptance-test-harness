@@ -53,6 +53,8 @@ public class Cleaner {
             try {
                 task.evaluate();
             } catch (Throwable t) {
+                System.err.println("close vyhodil " + t);
+                t.printStackTrace();
                 throw new AssertionError(task+" failed",t);
             }
         }

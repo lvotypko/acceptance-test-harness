@@ -217,6 +217,7 @@ public class FallbackConfig extends AbstractModule {
             @Override
             public void evaluate() throws Throwable {
                 try {
+                    //https://github.com/mozilla/geckodriver/issues/1151
                     d.close();
                     d.quit();
                 } catch (UnreachableBrowserException ex) {

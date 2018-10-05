@@ -40,6 +40,7 @@ import org.jenkinsci.test.acceptance.utils.pluginreporter.TextFileExercisedPlugi
 import org.jenkinsci.utils.process.CommandBuilder;
 import org.junit.runners.model.Statement;
 import org.openqa.selenium.Dimension;
+import org.openqa.selenium.SessionNotCreatedException;
 import org.openqa.selenium.UnsupportedCommandException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -220,8 +221,12 @@ public class FallbackConfig extends AbstractModule {
                     //https://github.com/mozilla/geckodriver/issues/1151
                     d.close();
                     d.quit();
-                } catch (UnreachableBrowserException ex) {
+                } catch (UnreachableBrowserException ex){
                     System.err.println("Browser died already");
+                    ex.printStackTrace();
+                }
+                catch(SessionNotCreatedException ex){
+                    System.err.println("Browser should be already closed");
                     ex.printStackTrace();
                 }
             }

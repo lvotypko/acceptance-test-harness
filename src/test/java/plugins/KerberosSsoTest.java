@@ -224,6 +224,7 @@ public class KerberosSsoTest extends AbstractJUnitTest {
         }
         String trustedUris = url;
         String jenkins_local_hostname = System.getenv("JENKINS_LOCAL_HOSTNAME");
+        System.err.println("url is " + url);
         // if JENKINS_LOCAL_HOSTNAME is set, we add this to FF nego uris
         if (jenkins_local_hostname != null && !jenkins_local_hostname.isEmpty()) {
             try {
@@ -236,6 +237,7 @@ public class KerberosSsoTest extends AbstractJUnitTest {
                 throw new Error(e);
             }
         }
+        System.err.println(trustedUris);
         profile.setPreference("network.negotiate-auth.trusted-uris", trustedUris);
         profile.setPreference("network.negotiate-auth.delegation-uris", trustedUris);
 

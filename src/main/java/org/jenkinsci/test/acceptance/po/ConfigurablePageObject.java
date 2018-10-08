@@ -100,8 +100,9 @@ public abstract class ConfigurablePageObject extends PageObject {
      * @see #getConfigUrl()
      */
     public void configure() {
+        System.err.println("driver current url " + driver.getCurrentUrl()  + " " + getConfigUrl().toExternalForm());
         if (driver.getCurrentUrl().equals(getConfigUrl().toExternalForm())) {
-            System.err.println("driver current url " + driver.getCurrentUrl()  + " " + getConfigUrl().toExternalForm());
+            System.err.println("return");
             return;
         }
         visit(getConfigUrl());

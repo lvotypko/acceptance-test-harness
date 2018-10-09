@@ -59,7 +59,9 @@ public abstract class ConfigurablePageObject extends PageObject {
      * @param body the additional configuration options for this page object
      */
     public void configure(final Runnable body) {
+        System.err.println("go to config page");
         configure();
+        System.err.println("on config page");
         body.run();
         save();
     }
@@ -105,7 +107,9 @@ public abstract class ConfigurablePageObject extends PageObject {
             System.err.println("is equals " + getClass().getName());
             return;
         }
+        System.err.println("go to configure url" + getClass().getName());
         visit(getConfigUrl());
+        System.err.println("on configure url " + getClass().getName());
         waitFor(By.xpath("//form[contains(@name, '" + getFormName() + "')]"), 10);
         waitFor(By.xpath("//span[contains(@class, 'submit-button')]//button[contains(text(), '" + getSubmitButtonText() + "')]"), 5);
     }

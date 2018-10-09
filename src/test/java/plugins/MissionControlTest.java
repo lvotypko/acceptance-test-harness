@@ -112,7 +112,9 @@ public class MissionControlTest extends AbstractJUnitTest {
         assertThat(driver, not(hasContent("Nodes")));
 
         DumbSlave slave = jenkins.slaves.create(DumbSlave.class, "test");
+        System.err.println("configure page of slave");
         slave.configure(() -> slave.setExecutors(15));
+        System.err.println("configured");
 
         view.configure(() -> view.setHideNodes(false));
 

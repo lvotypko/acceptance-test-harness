@@ -13,6 +13,7 @@ import org.jenkinsci.test.acceptance.plugins.mission_control.MissionControlView;
 import org.jenkinsci.test.acceptance.po.DumbSlave;
 import org.jenkinsci.test.acceptance.po.FreeStyleJob;
 import org.jenkinsci.test.acceptance.po.JenkinsConfig;
+import org.junit.Assert;
 import org.junit.Test;
 
 @WithPlugins("mission-control-view")
@@ -116,6 +117,7 @@ public class MissionControlTest extends AbstractJUnitTest {
         view.configure(() -> view.setHideNodes(false));
 
         view.open();
+        Assert.fail();
         assertThat(view.getNodeStatusArea().getNumberOfNodes(), is(2));
         assertThat(view.getNodeStatusArea().getStatusOfNode("test / 15"), containsString("danger"));
         assertThat(view.getNodeStatusArea().getStatusOfNode("master / 2"), containsString("success"));

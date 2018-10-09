@@ -54,6 +54,7 @@ public class Slave extends Node {
     }
 
     public String getLog() {
+        this.getConfigUrl();
         visit("log");
         return find(by.css("pre#out pre")).getText();
     }

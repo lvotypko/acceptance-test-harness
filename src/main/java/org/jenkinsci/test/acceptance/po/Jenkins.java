@@ -165,14 +165,17 @@ public class Jenkins extends Node implements Container {
         visit("restart");
         clickButton("Yes");
 
-        System.err.println("timeout " + JenkinsController.STARTUP_TIMEOUT);
+        waitForLoad(JenkinsController.STARTUP_TIMEOUT);
+    }
+
+    public void waitForLoad(int seconds){
         List<Class<? extends Throwable>> ignoring = new ArrayList<Class<? extends Throwable>>();
         ignoring.add(AssertionError.class);
         ignoring.add(NoSuchElementException.class);
         ignoring.add(WebDriverException.class);
         //Ignore WebDriverException during restart.
         // Poll until we have the real page
-        waitFor(driver).withTimeout(JenkinsController.STARTUP_TIMEOUT, TimeUnit.SECONDS)
+        waitFor(driver).withTimeout(seconds, TimeUnit.SECONDS)
                 .ignoreAll(ignoring)
                 .until((Function<WebDriver, Boolean>) driver -> {
                     visit(driver.getCurrentUrl()); // the page sometimes does not reload (fast enough)
@@ -180,7 +183,6 @@ public class Jenkins extends Node implements Container {
                     return true;
                 })
         ;
-        System.err.println("restarted");
     }
 
     public JenkinsLogger getLogger(String name) {

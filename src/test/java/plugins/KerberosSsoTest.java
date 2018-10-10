@@ -220,7 +220,7 @@ public class KerberosSsoTest extends AbstractJUnitTest {
         // Allow auth negotiation for jenkins under test
         String url = jenkins.url.toExternalForm();
         if(url.endsWith("/")){
-            url = url.substring(0, url.length()-2);
+            url = url.substring(0, url.length()-1);
         }
         String trustedUris = url;
         String jenkins_local_hostname = System.getenv("JENKINS_LOCAL_HOSTNAME");

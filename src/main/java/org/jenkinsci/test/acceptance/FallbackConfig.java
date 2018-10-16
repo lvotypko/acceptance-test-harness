@@ -225,10 +225,12 @@ public class FallbackConfig extends AbstractModule {
                 try {
                     //https://github.com/mozilla/geckodriver/issues/1151
                     Alert alert = ExpectedConditions.alertIsPresent().apply(d);
-                    alert.accept();
-                    System.err.println("alert not caused by driver.close");
+                    if(alert!=null) {
+                        alert.accept();
+                        System.err.println("alert not caused by driver.close");
+                    }
                     LeavingPageAlertAcceptThread thread = new LeavingPageAlertAcceptThread(d);
-                    thread.run();
+                    thread.start();
                     d.close();
                     thread.closed = true;
                     d.quit();

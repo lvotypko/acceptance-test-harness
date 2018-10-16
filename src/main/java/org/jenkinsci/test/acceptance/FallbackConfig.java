@@ -43,6 +43,7 @@ import org.openqa.selenium.Dimension;
 import org.openqa.selenium.SessionNotCreatedException;
 import org.openqa.selenium.UnsupportedCommandException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -225,7 +226,7 @@ public class FallbackConfig extends AbstractModule {
                     System.err.println("Browser died already");
                     ex.printStackTrace();
                 }
-                catch(SessionNotCreatedException ex){
+                catch(WebDriverException ex){
                     System.err.println("Browser should be already closed");
                     ex.printStackTrace();
                 }

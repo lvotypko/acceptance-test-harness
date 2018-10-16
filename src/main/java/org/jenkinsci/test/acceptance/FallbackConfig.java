@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.Map;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.lang.StringUtils;
@@ -39,6 +40,7 @@ import org.jenkinsci.test.acceptance.utils.pluginreporter.ExercisedPluginsReport
 import org.jenkinsci.test.acceptance.utils.pluginreporter.TextFileExercisedPluginReporter;
 import org.jenkinsci.utils.process.CommandBuilder;
 import org.junit.runners.model.Statement;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.SessionNotCreatedException;
 import org.openqa.selenium.UnsupportedCommandException;
@@ -63,6 +65,7 @@ import com.cloudbees.sdk.extensibility.ExtensionList;
 import com.google.inject.AbstractModule;
 import com.google.inject.Injector;
 import com.google.inject.Provides;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 /**
  * The default configuration for running tests.
@@ -218,9 +221,16 @@ public class FallbackConfig extends AbstractModule {
         cleaner.addTask(new Statement() {
             @Override
             public void evaluate() throws Throwable {
+                final WebDriver driver = d;
                 try {
                     //https://github.com/mozilla/geckodriver/issues/1151
+                    Alert alert = ExpectedConditions.alertIsPresent().apply(d);
+                    alert.accept();
+                    System.err.println("alert not caused by driver.close");
+                    LeavingPageAlertAcceptThread thread = new LeavingPageAlertAcceptThread(d);
+                    thread.run();
                     d.close();
+                    thread.closed = true;
                     d.quit();
                 } catch (UnreachableBrowserException ex){
                     System.err.println("Browser died already");
@@ -237,6 +247,32 @@ public class FallbackConfig extends AbstractModule {
             }
         });
         return d;
+    }
+
+    public static class LeavingPageAlertAcceptThread extends Thread {
+
+        private WebDriver driver;
+        private boolean closed;
+
+        public LeavingPageAlertAcceptThread(WebDriver driver){
+            this.driver = driver;
+            closed = false;
+        }
+
+        public void run(){
+            while(!closed){
+                Alert alert = ExpectedConditions.alertIsPresent().apply(driver);
+                if(alert != null){
+                    alert.accept();
+                    return;
+                }
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     @Provides

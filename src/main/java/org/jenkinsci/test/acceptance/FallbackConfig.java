@@ -224,6 +224,7 @@ public class FallbackConfig extends AbstractModule {
                 final WebDriver driver = d;
                 try {
                     //https://github.com/mozilla/geckodriver/issues/1151
+                    driver.navigate().refresh();
                     Alert alert = ExpectedConditions.alertIsPresent().apply(d);
                     if(alert!=null) {
                         alert.accept();
@@ -265,6 +266,7 @@ public class FallbackConfig extends AbstractModule {
             while(!closed){
                 Alert alert = ExpectedConditions.alertIsPresent().apply(driver);
                 if(alert != null){
+                    driver.navigate().refresh();
                     alert.accept();
                     return;
                 }

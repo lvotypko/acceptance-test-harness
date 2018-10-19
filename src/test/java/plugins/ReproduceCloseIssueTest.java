@@ -168,6 +168,139 @@ public class ReproduceCloseIssueTest extends AbstractJUnitTest {
         addMarkerPostBuildStep();
     }
 
+    @Test
+    public void test_21() {
+        j.configure();
+        j.setLabelExpression("test");
+        addMarkerPostBuildStep();
+    }
+
+    @Test
+    public void test_22() {
+        j.configure();
+        j.setLabelExpression("test");
+        addMarkerPostBuildStep();
+    }
+
+    @Test
+    public void test_23() {
+        j.configure();
+        j.setLabelExpression("test");
+        addMarkerPostBuildStep();
+    }
+
+    @Test
+    public void test_24() {
+        j.configure();
+        j.setLabelExpression("test");
+        addMarkerPostBuildStep();
+    }
+
+    @Test
+    public void test_25() {
+        j.configure();
+        j.setLabelExpression("test");
+        addMarkerPostBuildStep();
+    }
+
+    @Test
+    public void test_26() {
+        j.configure();
+        j.setLabelExpression("test");
+        addMarkerPostBuildStep();
+    }
+
+    @Test
+    public void test_27() {
+        j.configure();
+        j.setLabelExpression("test");
+        addMarkerPostBuildStep();
+    }
+
+    @Test
+    public void test_28() {
+        j.configure();
+        j.setLabelExpression("test");
+        addMarkerPostBuildStep();
+    }
+
+    @Test
+    public void test_29() {
+        j.configure();
+        j.setLabelExpression("test");
+        addMarkerPostBuildStep();
+    }
+
+    @Test
+    public void test_30() {
+        j.configure();
+        j.setLabelExpression("test");
+        addMarkerPostBuildStep();
+    }
+
+    @Test
+    public void test_31() {
+        j.configure();
+        j.setLabelExpression("test");
+        addMarkerPostBuildStep();
+    }
+
+    @Test
+    public void test_32() {
+        j.configure();
+        j.setLabelExpression("test");
+        addMarkerPostBuildStep();
+    }
+
+    @Test
+    public void test_33() {
+        j.configure();
+        j.setLabelExpression("test");
+        addMarkerPostBuildStep();
+    }
+
+    @Test
+    public void test_34() {
+        j.configure();
+        j.setLabelExpression("test");
+        addMarkerPostBuildStep();
+    }
+
+    @Test
+    public void test_35() {
+        j.configure();
+        j.setLabelExpression("test");
+        addMarkerPostBuildStep();
+    }
+
+    @Test
+    public void test_36() {
+        j.configure();
+        j.setLabelExpression("test");
+        addMarkerPostBuildStep();
+    }
+
+    @Test
+    public void test_37() {
+        j.configure();
+        j.setLabelExpression("test");
+        addMarkerPostBuildStep();
+    }
+
+    @Test
+    public void test_38() {
+        j.configure();
+        j.setLabelExpression("test");
+        addMarkerPostBuildStep();
+    }
+
+    @Test
+    public void test_39() {
+        j.configure();
+        j.setLabelExpression("test");
+        addMarkerPostBuildStep();
+    }
+
     private PostBuildScript addMarkerPostBuildStep() {
         PostBuildScript post = j.addPublisher(PostBuildScript.class);
         j.control("/publisher[PostBuildScript]/repeatable-add[3]").click();

@@ -97,7 +97,7 @@ public class KerberosSsoTest extends AbstractJUnitTest {
     @Test
     public void kerberosTicket() throws Exception {
         setupRealmUser();
-        Thread.sleep(10000000);
+        Thread.sleep(1000000000);
         KerberosContainer kdc = startKdc();
         configureSso(kdc, false, false);
 

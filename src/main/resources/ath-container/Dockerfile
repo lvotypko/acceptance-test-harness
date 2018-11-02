@@ -58,4 +58,6 @@ RUN touch /home/ath-user/.Xauthority
 # approach used for this is adding ath-user to the group of /var/run/docker.sock but that require root permission we do not
 # have in ENTRYPOINT as the container is started as ath-user.
 USER root
+RUN ls -ls "$(which docker)"
 RUN chmod ug+s "$(which docker)"
+RUN docker ps

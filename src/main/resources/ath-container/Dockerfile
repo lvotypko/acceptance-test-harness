@@ -60,4 +60,3 @@ RUN touch /home/ath-user/.Xauthority
 USER root
 RUN ls -ls "$(which docker)"
 RUN chmod ug+s "$(which docker)"
-RUN docker ps

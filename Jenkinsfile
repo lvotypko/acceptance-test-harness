@@ -23,8 +23,6 @@
                             sh '''
                                 eval $(./vnc.sh)
                                 geckodriver --version
-                                java --version
-                                firefox --version
                                 ./run.sh firefox latest -e -X -Dmaven.test.failure.ignore=true -DforkCount=1 -B -DargLine="-Djdk.net.URLClassPath.disableClassPathURLCheck=true"
 
                             '''

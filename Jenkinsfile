@@ -18,20 +18,14 @@
                         def exclusions = splits.get(index).join("\n");
                         writeFile file: 'excludes.txt', text: exclusions
                         sh "free -h"
-                        try{
+
                         realtimeJUnit(testResults: 'target/surefire-reports/TEST-*.xml', testDataPublishers: [[$class: 'AttachmentPublisher']]) {
                             sh '''
                                 eval $(./vnc.sh)
-                                ./run.sh firefox latest -Dmaven.test.failure.ignore=true -DforkCount=1 -B
+                                ./run.sh firefox latest -e -Dmaven.test.failure.ignore=true -DforkCount=1 -B
                             '''
-
+                            sh "sleep 1000"
                         }
-                        }catch(Exception e){
-                        println("exception");
-                        }
-                        sh "ls"
-                        sh "ls /tmp"
-                        sh "./run.sh firefox latest -Dmaven.test.failure.ignore=true -e -DforkCount=1 -B "
                     }
                 }
             }

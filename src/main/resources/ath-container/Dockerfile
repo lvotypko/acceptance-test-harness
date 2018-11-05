@@ -59,4 +59,8 @@ RUN touch /home/ath-user/.Xauthority
 # have in ENTRYPOINT as the container is started as ath-user.
 USER root
 RUN chmod ug+s "$(which docker)"
-RUN chmod ug+s "$(which geckodriver)"
+RUN geckodriver --version
+RUN chmod ugo+x "$(which geckodriver)"
+USER ath-user
+RUN geckodriver --version
+USER root

@@ -17,12 +17,17 @@
                     image.inside('-v /var/run/docker.sock:/var/run/docker.sock --shm-size 2g') {
                         def exclusions = splits.get(index).join("\n");
                         writeFile file: 'excludes.txt', text: exclusions
+                        sh "free -h"
                         realtimeJUnit(testResults: 'target/surefire-reports/TEST-*.xml', testDataPublishers: [[$class: 'AttachmentPublisher']]) {
                             sh '''
                                 eval $(./vnc.sh)
                                 ./run.sh firefox latest -Dmaven.test.failure.ignore=true -DforkCount=1 -B
                             '''
+
                         }
+                        sh "ls"
+                        sh "ls /tmp"
+                        sh "./run.sh firefox latest -Dmaven.test.failure.ignore=true -e -DforkCount=1 -B "
                     }
                 }
             }

@@ -18,12 +18,16 @@
                         def exclusions = splits.get(index).join("\n");
                         writeFile file: 'excludes.txt', text: exclusions
                         sh "free -h"
+                        try{
                         realtimeJUnit(testResults: 'target/surefire-reports/TEST-*.xml', testDataPublishers: [[$class: 'AttachmentPublisher']]) {
                             sh '''
                                 eval $(./vnc.sh)
                                 ./run.sh firefox latest -Dmaven.test.failure.ignore=true -DforkCount=1 -B
                             '''
 
+                        }
+                        }catch(Exception e){
+                        println("exception");
                         }
                         sh "ls"
                         sh "ls /tmp"

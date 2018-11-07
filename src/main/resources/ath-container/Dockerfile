@@ -22,7 +22,7 @@ RUN apt-get clean && \
 # All we need is a statically linked client library - no need to install daemon deps: https://get.docker.com/builds/
 RUN curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-17.03.2-ce.tgz && \
     tar --strip-components=1 -xvzf docker-17.03.2-ce.tgz -C /usr/local/bin
-    
+
 ENV SHARED_DOCKER_SERVICE true
 
 # Allow injecting uid and git to match directory ownership
@@ -50,6 +50,8 @@ RUN touch /home/ath-user/.vnc/xstartup && chmod a+x /home/ath-user/.vnc/xstartup
 RUN echo "exec /etc/X11/Xsession" > /home/ath-user/.Xsession && chmod +x /home/ath-user/.Xsession
 # Prevent xauth to complain in a confusing way
 RUN touch /home/ath-user/.Xauthority
+
+RUN firefox --version
 
 # Set SUID and SGID for docker binary so it can communicate with mapped socket its uid:gid we can not control. Alternative
 # approach used for this is adding ath-user to the group of /var/run/docker.sock but that require root permission we do not

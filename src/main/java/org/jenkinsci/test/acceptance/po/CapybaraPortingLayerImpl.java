@@ -111,7 +111,6 @@ public class CapybaraPortingLayerImpl implements CapybaraPortingLayer {
         } else {
             e.click();
         }
-        e.click();
     }
 
     /**

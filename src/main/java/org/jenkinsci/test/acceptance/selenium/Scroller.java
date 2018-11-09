@@ -90,6 +90,6 @@ public class Scroller extends AbstractWebDriverEventListener {
           //          e1.printStackTrace();
           //      }
 
-        }
+        //}
     }
 }

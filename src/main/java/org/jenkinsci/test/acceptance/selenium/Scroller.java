@@ -83,12 +83,12 @@ public class Scroller extends AbstractWebDriverEventListener {
         String id = e.getAttribute("id");
 
         WebElement response = (WebElement) ((JavascriptExecutor)driver).executeScript(scrollJs, eYCoord, eXCoord, id);
-        if(response!=null && response.getAttribute("style").contains("bottom: 0px")){
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e1) {
-                    e1.printStackTrace();
-                }
+       // if(response!=null && response.getAttribute("style").contains("bottom: 0px")){
+        //        try {
+                   // Thread.sleep(1000);
+        //        } catch (InterruptedException e1) {
+          //          e1.printStackTrace();
+          //      }
 
         }
     }

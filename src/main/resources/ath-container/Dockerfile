@@ -14,6 +14,7 @@ RUN apt-get clean && \
         imagemagick \
         iptables \
         firefox-esr \
+        geckodriver \
         maven \
         openjdk-8-jdk \
         unzip \

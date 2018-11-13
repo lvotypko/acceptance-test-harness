@@ -108,6 +108,7 @@ public class CapybaraPortingLayerImpl implements CapybaraPortingLayer {
             Actions builder = new Actions(driver);
             builder.moveToElement(e).click(e);
             builder.perform();
+            System.err.println("sticky button click performed");
         } else {
             e.click();
         }

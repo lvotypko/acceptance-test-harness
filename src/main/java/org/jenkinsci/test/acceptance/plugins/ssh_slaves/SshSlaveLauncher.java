@@ -70,7 +70,14 @@ public class SshSlaveLauncher extends ComputerLauncher {
         cred.username.set(username);
         cred.password.set(password);
         cred.add();
-        waitForCredentialVisible(username);
+        try {
+            waitForCredentialVisible(username);
+        }
+        catch(Exception e){
+            System.err.println("cred text ");
+            System.err.println(credentialsId.resolve().getText());
+            throw e;
+        }
         return this;
     }
 

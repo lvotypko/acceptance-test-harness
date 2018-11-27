@@ -25,7 +25,7 @@ RUN curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-17
 
 ENV SHARED_DOCKER_SERVICE true
 
-ENV JAVA_OPTS=-Djdk.net.URLClassPath.disableClassPathURLCheck=true
+ENV JAVA_OPTS -Djdk.net.URLClassPath.disableClassPathURLCheck=true
 
 # Selenium needs a geckodriver in order to work properly
 RUN curl -fsSLO https://github.com/mozilla/geckodriver/releases/download/v0.22.0/geckodriver-v0.22.0-linux64.tar.gz && \

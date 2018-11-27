@@ -58,6 +58,7 @@ public class EmmaResultsPage extends PageObject {
         while (m.find()) {
             l.add(m.group());
         }
+        System.err.println("expected " + correct + " is " + l);
         assert(l.equals(correct));
     }
 }

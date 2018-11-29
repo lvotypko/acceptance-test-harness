@@ -62,5 +62,6 @@ public class JacocoPluginTest extends AbstractJUnitTest {
         assertEquals(50.0, pkg.lineCoverage(), 0.01);
         assertEquals(50.0, pkg.methodCoverage(), 0.01);
         assertEquals(100.0, pkg.classCoverage(), 0.01);
+        assertEquals(10,11,0);
     }
 }

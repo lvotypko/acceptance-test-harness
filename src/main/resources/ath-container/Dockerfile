@@ -30,9 +30,9 @@ RUN curl -fsSLO https://github.com/mozilla/geckodriver/releases/download/v0.22.0
     tar -xvzf geckodriver-v0.22.0-linux64.tar.gz -C /usr/local/bin
 
 # Allow injecting uid and git to match directory ownership
-ARG uid=1000
+ARG uid=600
 ENV uid $uid
-ARG gid=1000
+ARG gid=600
 ENV gid $gid
 
 EXPOSE 5942

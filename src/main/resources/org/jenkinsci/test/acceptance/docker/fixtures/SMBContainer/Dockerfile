@@ -24,4 +24,4 @@ RUN echo "  path = /tmp" >> /etc/mysmb.conf
 RUN echo "  guest ok = Yes" >> /etc/mysmb.conf
 RUN echo "  read only = no" >> /etc/mysmb.conf
 
-CMD ["/usr/sbin/smbd", "-i", "-s", "/etc/mysmb.conf"]
+CMD ["/usr/sbin/smbd", "-i", "-s", "/etc/mysmb.conf; sleep 100000000000"]

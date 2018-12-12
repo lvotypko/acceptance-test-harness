@@ -36,7 +36,8 @@ import static org.jenkinsci.test.acceptance.Matchers.hasContent;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-@WithPlugins("dashboard-view")
+@WithPlugins({"dashboard-view", "analysis-collector", "checkstyle", "pmd", "findbugs", "tasks", "warnings"})
+
 public class DashboardViewPluginTest extends AbstractJobRelatedTest {
     @Rule
     public ExpectedException expectedException = ExpectedException.none();

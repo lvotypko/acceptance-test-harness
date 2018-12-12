@@ -36,7 +36,7 @@ import static org.jenkinsci.test.acceptance.Matchers.hasContent;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThat;
 
-@WithPlugins({"dashboard-view", "analysis-collector", "checkstyle", "pmd", "findbugs", "tasks", "warnings"})
+@WithPlugins({"dashboard-view", "analysis-collector", "checkstyle", "pmd", "findbugs", "tasks", "warnings", "robot", "extra-columns"})
 
 public class DashboardViewPluginTest extends AbstractJobRelatedTest {
     @Rule

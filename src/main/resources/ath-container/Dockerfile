@@ -8,6 +8,7 @@ MAINTAINER ogondza@gmail.com
 
 RUN apt-get clean && \
     apt-get -y update && \
+    apt-cache search chrome && \
     apt-get install -y \
         curl \
         git \
@@ -16,7 +17,11 @@ RUN apt-get clean && \
         firefox-esr \
         maven \
         unzip \
-        vnc4server
+        vnc4server \
+        chromedriver
+
+RUN curl -fsSLO https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+RUN dpkg -i google-chrome-stable_current_amd64.deb --fix-missing; apt-get -fy install
 
 # All we need is a statically linked client library - no need to install daemon deps: https://get.docker.com/builds/
 RUN curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-17.03.2-ce.tgz && \

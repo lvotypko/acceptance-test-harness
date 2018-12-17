@@ -6,6 +6,8 @@
 FROM debian:buster
 MAINTAINER ogondza@gmail.com
 
+
+
 RUN apt-get clean && \
     apt-get -y update && \
     apt-cache search chrome && \
@@ -17,11 +19,19 @@ RUN apt-get clean && \
         firefox-esr \
         maven \
         unzip \
+        gnupg \
         vnc4server \
-        chromedriver
+        unzip
 
-RUN curl -fsSLO https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-RUN dpkg -i google-chrome-stable_current_amd64.deb --fix-missing; apt-get -fy install
+
+RUN curl -sSL https://dl.google.com/linux/linux_signing_key.pub | apt-key add -
+RUN echo "deb [arch=amd64] https://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list
+RUN apt-get update && apt-get install -y \
+    	google-chrome-stable
+
+RUN apt-cache search chrome
+
+RUN curl -fsSLO https://chromedriver.storage.googleapis.com/2.45/chromedriver_linux64.zip && unzip -d /usr/local/bin chromedriver_linux64.zip
 
 # All we need is a statically linked client library - no need to install daemon deps: https://get.docker.com/builds/
 RUN curl -fsSLO https://download.docker.com/linux/static/stable/x86_64/docker-17.03.2-ce.tgz && \
@@ -64,6 +74,8 @@ RUN touch /home/ath-user/.Xauthority
 # have in ENTRYPOINT as the container is started as ath-user.
 USER root
 RUN chmod ug+s "$(which docker)"
+
+ENV java_version=8
 
 # The variable seems to prevent docker to cache the install command so moving it towards the end
 ARG java_version

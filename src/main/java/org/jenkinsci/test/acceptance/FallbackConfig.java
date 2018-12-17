@@ -118,7 +118,7 @@ public class FallbackConfig extends AbstractModule {
             prefs.put(LANGUAGE_SELECTOR, "en");
             ChromeOptions options = new ChromeOptions();
             options.setExperimentalOption("prefs", prefs);
-
+            options.addArguments("--no-sandbox");
             setDriverProperty("chromedriver", ChromeDriverService.CHROME_DRIVER_EXE_PROPERTY);
             return new ChromeDriver(options);
         case "safari":

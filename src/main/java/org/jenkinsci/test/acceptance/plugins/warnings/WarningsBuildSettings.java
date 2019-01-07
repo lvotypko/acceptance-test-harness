@@ -13,7 +13,7 @@ import org.openqa.selenium.WebElement;
 /**
  * Settings of the warnings plugin. There is no difference between freestyle and maven jobs.
  */
-@Describable("Scan for compiler warnings")
+@Describable("Record compiler warnings and static analysis results")
 public class WarningsBuildSettings extends AnalysisFreestyleSettings {
     private static final String CONSOLE_PARSERS = "consoleParsers";
     private static final String FILE_PARSERS = "parserConfigurations";

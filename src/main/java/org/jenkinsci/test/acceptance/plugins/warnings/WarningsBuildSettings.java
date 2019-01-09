@@ -57,7 +57,7 @@ public class WarningsBuildSettings extends AnalysisFreestyleSettings {
      //   });
 
         PageArea repeatable = new PageAreaImpl(WarningsBuildSettings.this.getPage(), "/toolProxies") {};
-        repeatable.control("parserName").select(parserName);
+        repeatable.control("/").select(parserName);
     }
 
     public void addWorkspaceScanner(final String caption, final String pattern) {
@@ -68,8 +68,9 @@ public class WarningsBuildSettings extends AnalysisFreestyleSettings {
         //});
 
         PageArea repeatable = new PageAreaImpl(WarningsBuildSettings.this.getPage(), "/toolProxies") {};
-        repeatable.control("pattern").set(pattern);
-        repeatable.control("parserName").select(caption);
+        repeatable.control("/").select(caption);
+        repeatable.control("tool/pattern").set(pattern);
+
     }
 
     /**

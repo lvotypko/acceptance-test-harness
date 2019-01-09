@@ -50,24 +50,24 @@ public class WarningsBuildSettings extends AnalysisFreestyleSettings {
     }
 
     public void addConsoleParser(final String parserName) {
-        final String path = createPageArea(CONSOLE_PARSERS, new Runnable() {
-            @Override public void run() {
-                consoleParsers.click();
-            }
-        });
+      //  final String path = createPageArea(CONSOLE_PARSERS, new Runnable() {
+     //       @Override public void run() {
+     //           consoleParsers.click();
+     //       }
+     //   });
 
-        PageArea repeatable = new PageAreaImpl(WarningsBuildSettings.this.getPage(), path) {};
+        PageArea repeatable = new PageAreaImpl(WarningsBuildSettings.this.getPage(), "/toolProxies") {};
         repeatable.control("parserName").select(parserName);
     }
 
     public void addWorkspaceScanner(final String caption, final String pattern) {
-        final String path = createPageArea(FILE_PARSERS, new Runnable() {
-            @Override public void run() {
-                fileParsers.click();
-            }
-        });
+        //final String path = createPageArea(FILE_PARSERS, new Runnable() {
+        //    @Override public void run() {
+        //        fileParsers.click();
+        //    }
+        //});
 
-        PageArea repeatable = new PageAreaImpl(WarningsBuildSettings.this.getPage(), path) {};
+        PageArea repeatable = new PageAreaImpl(WarningsBuildSettings.this.getPage(), "/toolProxies") {};
         repeatable.control("pattern").set(pattern);
         repeatable.control("parserName").select(caption);
     }

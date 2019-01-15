@@ -557,7 +557,7 @@ public class WarningsPluginTest extends AbstractAnalysisTest<WarningsAction> {
     public void should_resolve_workspace_files() {
         FreeStyleJob job = createFreeStyleJob(RESOURCES + "jenkins-32150", settings -> {
             settings.addWorkspaceScanner(CLANG_ID, "**/compile-log.txt");
-            settings.setCanResolveRelativePaths(true);
+            //settings.setCanResolveRelativePaths(true);
         });
 
         Build build = buildSuccessfulJob(job);

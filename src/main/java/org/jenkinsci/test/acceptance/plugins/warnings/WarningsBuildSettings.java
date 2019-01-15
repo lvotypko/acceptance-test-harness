@@ -66,8 +66,9 @@ public class WarningsBuildSettings extends AnalysisFreestyleSettings {
         //        fileParsers.click();
         //    }
         //});
+        System.err.println("tool " + WarningsBuildSettings.this.getPath());
+        PageArea repeatable = new PageAreaImpl(WarningsBuildSettings.this.getPage(), "/toolProxies") {};
 
-        PageArea repeatable = new PageAreaImpl(WarningsBuildSettings.this.getPage(), "/toolProxies/") {};
         WarningsBuildSettings.this.getPage().control("/toolProxies/").select(caption);
         repeatable.control("tool/pattern").set(pattern);
 

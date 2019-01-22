@@ -562,11 +562,11 @@ public class WarningsPluginTest extends AbstractAnalysisTest<WarningsAction> {
 
         Build build = buildSuccessfulJob(job);
 
-        assertThatActionExists(job, build, "LLVM/Clang Warnings");
+        assertThatActionExists(job, build, "Clang (LLVM based)");
 
         build.open();
         int count = 10;
-        assertThat(driver, hasContent("LLVM/Clang Warnings: " + count));
+        assertThat(driver, hasContent("Clang (LLVM based): " + count + " warnings"));
 
         WarningsAction action = new WarningsAction(build, "LLVM/Clang", "Clang (LLVM based)");
 

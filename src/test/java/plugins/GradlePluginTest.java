@@ -35,6 +35,8 @@ import org.jvnet.hudson.test.Issue;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
+import java.util.GregorianCalendar;
+
 import static org.jenkinsci.test.acceptance.Matchers.containsRegexp;
 import static org.jenkinsci.test.acceptance.Matchers.containsString;
 import static org.jenkinsci.test.acceptance.plugins.gradle.GradleTask.HELLO;
@@ -132,7 +134,7 @@ public class GradlePluginTest extends AbstractJUnitTest {
         final Build build = job.startBuild();
         build.shouldSucceed();
         build.openStatusPage();
-        final WebElement buildScanLink = build.find(By.partialLinkText("Gradle Build Scan"));
+        final WebElement buildScanLink = build.find(By.partialLinkText("Build Scans"));
         assertThat(buildScanLink.getAttribute("href"), containsString("https://gradle.com/"));
     }
 
